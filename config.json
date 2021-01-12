@@ -1,0 +1,45 @@
+
+{
+    "appInfo": {
+        "appName": "Fundwire",
+        "support": "<UPDATE ME>",
+        "termsOfUse": "<UPDATE ME>",
+        "privacyPolicy": "<UPDATE ME>",
+        "publisher": "<UPDATE ME>",
+        "copyright": "<UPDATE ME>",
+    }
+    "api": {
+        "firebaseApiKey": "<UPDATE ME>",
+    }
+    "languages": {
+        "en": {
+            "homeScreen": {
+                "homeDescriptionTextView": "You can publish your articles, videos, events an podcast and more with Fundwire.",
+                "homeSignInButton": "Sign in",
+                "homeSignUpButton": "Sign Up"
+                
+            }
+            "assetManagerHomeScreen": {
+                "welcomeLabel": "Welcome",
+                "dashboardLabel": "Dashboard",
+                "feedLabel": "Feed",
+                "analyticsLabel": "Analytics",
+                "settingsLabel": "Settings"
+            }
+        }
+        "de": {
+            "homeScreen": {
+                "homeDescriptionTextView": "<UPDATE ME>",
+                "homeSignInButton": "<UPDATE ME>",
+                "homeSignUpButton": "<UPDATE ME>",
+            }
+            "assetManagerHomeScreen": {
+                "welcomeLabel": "Willkommen",
+                "dashboardLabel": "Panel",
+                "feedLabel": "Futter",
+                "analyticsLabel": "Analytik",
+                "settingsLabel": "Einstellung"
+            }
+        }
+    }
+}

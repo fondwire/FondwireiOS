@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gotham Book.otf">
+            <string>Gotham-Book</string>
+        </array>
+        <array key="Gotham-Bold.otf">
+            <string>Gotham-Bold</string>
+        </array>
+        <array key="Gotham-Medium.otf">
+            <string>Gotham-Medium</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Asset Detail Controller-->
+        <scene sceneID="QvJ-ck-ziC">
+            <objects>
+                <viewController storyboardIdentifier="AssetDetailController" id="aaq-nd-5z0" customClass="AssetDetailController" customModule="FondWire" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1pW-Up-6PP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IDFC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlL-S1-AgF">
+                                <rect key="frame" x="138" y="155" width="256" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="ZwV-Vl-fpg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j98-Gz-xHP">
+                                <rect key="frame" x="369" y="61" width="25" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="j98-Gz-xHP" secondAttribute="height" multiplier="25:24" id="8tc-yW-Yxf"/>
+                                    <constraint firstAttribute="width" constant="25" id="xUv-Tu-Msu"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="arrowshape.turn.up.right.circle.fill" catalog="system" symbolScale="large" renderingMode="template"/>
+                                </state>
+                                <connections>
+                                    <action selector="shareButtonTapped:" destination="aaq-nd-5z0" eventType="touchUpInside" id="roW-11-Qoz"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMv-5X-unx">
+                                <rect key="frame" x="20" y="210" width="372" height="63"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Contact Person" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2AO-Ie-mKU">
+                                <rect key="frame" x="24" y="291" width="374" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="aQL-mk-8jp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="l9B-uY-G1f">
+                                <rect key="frame" x="26" y="332" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="l9B-uY-G1f" secondAttribute="height" multiplier="1:1" id="7af-OD-D0n"/>
+                                    <constraint firstAttribute="height" constant="80" id="u4t-jW-5Ie"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon3.png" translatesAutoresizingMaskIntoConstraints="NO" id="1mA-Xf-JLL">
+                                <rect key="frame" x="37" y="115" width="83" height="83"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="1mA-Xf-JLL" secondAttribute="height" multiplier="1:1" id="0F9-0z-BVg"/>
+                                    <constraint firstAttribute="width" constant="83" id="JoH-Ah-c4Y"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Money Max" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VlB-xc-1tn">
+                                <rect key="frame" x="122" y="332" width="256" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="bqL-Jy-UGk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Director Bank Clients" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5to-Le-cde">
+                                <rect key="frame" x="122" y="360" width="256" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="HmW-sh-8Mq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ 49172/433 5656 667" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXU-XA-Tsk">
+                                <rect key="frame" x="122" y="377" width="256" height="17"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="moneymax@bank.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSH-QH-PsN">
+                                <rect key="frame" x="122" y="394" width="256" height="17"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="iFa-KB-T5p"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="1mA-Xf-JLL" firstAttribute="top" secondItem="iFa-KB-T5p" secondAttribute="top" constant="71" id="0wH-9Y-wml"/>
+                            <constraint firstItem="iFa-KB-T5p" firstAttribute="trailing" secondItem="QXU-XA-Tsk" secondAttribute="trailing" constant="36" id="2Ds-Rq-oJk"/>
+                            <constraint firstItem="1mA-Xf-JLL" firstAttribute="leading" secondItem="iFa-KB-T5p" secondAttribute="leading" constant="37" id="2bo-lb-MuB"/>
+                            <constraint firstItem="2AO-Ie-mKU" firstAttribute="top" secondItem="KMv-5X-unx" secondAttribute="bottom" constant="18" id="6xy-4H-3pU"/>
+                            <constraint firstItem="5to-Le-cde" firstAttribute="top" secondItem="VlB-xc-1tn" secondAttribute="bottom" id="7O8-O2-5p6"/>
+                            <constraint firstItem="iFa-KB-T5p" firstAttribute="trailing" secondItem="2AO-Ie-mKU" secondAttribute="trailing" constant="16" id="DCy-Qt-8QN"/>
+                            <constraint firstItem="l9B-uY-G1f" firstAttribute="leading" secondItem="iFa-KB-T5p" secondAttribute="leading" constant="26" id="IG7-fB-tEx"/>
+                            <constraint firstItem="iFa-KB-T5p" firstAttribute="trailing" secondItem="WlL-S1-AgF" secondAttribute="trailing" constant="20" id="IrJ-iD-JEp"/>
+                            <constraint firstItem="iFa-KB-T5p" firstAttribute="trailing" secondItem="KMv-5X-unx" secondAttribute="trailing" constant="22" id="Mz5-Az-2xg"/>
+                            <constraint firstItem="ZSH-QH-PsN" firstAttribute="height" secondItem="QXU-XA-Tsk" secondAttribute="height" id="S5H-80-bQG"/>
+                            <constraint firstItem="KMv-5X-unx" firstAttribute="top" secondItem="WlL-S1-AgF" secondAttribute="bottom" constant="12" id="WSo-UW-0PV"/>
+                            <constraint firstItem="iFa-KB-T5p" firstAttribute="trailing" secondItem="ZSH-QH-PsN" secondAttribute="trailing" constant="36" id="Xag-wf-ceW"/>
+                            <constraint firstItem="iFa-KB-T5p" firstAttribute="trailing" secondItem="j98-Gz-xHP" secondAttribute="trailing" constant="20" id="YbI-MF-2Y1"/>
+                            <constraint firstItem="2AO-Ie-mKU" firstAttribute="leading" secondItem="iFa-KB-T5p" secondAttribute="leading" constant="24" id="ZH8-eD-r7u"/>
+                            <constraint firstItem="j98-Gz-xHP" firstAttribute="top" secondItem="iFa-KB-T5p" secondAttribute="top" constant="17" id="ZW1-4z-qdI"/>
+                            <constraint firstItem="QXU-XA-Tsk" firstAttribute="top" secondItem="5to-Le-cde" secondAttribute="bottom" id="cOC-U5-yUv"/>
+                            <constraint firstItem="l9B-uY-G1f" firstAttribute="top" secondItem="2AO-Ie-mKU" secondAttribute="bottom" constant="11" id="cr5-9z-GqM"/>
+                            <constraint firstItem="ZSH-QH-PsN" firstAttribute="top" secondItem="QXU-XA-Tsk" secondAttribute="bottom" id="dgK-wW-yfD"/>
+                            <constraint firstItem="5to-Le-cde" firstAttribute="leading" secondItem="l9B-uY-G1f" secondAttribute="trailing" constant="16" id="e0B-vg-oBp"/>
+                            <constraint firstItem="WlL-S1-AgF" firstAttribute="top" secondItem="iFa-KB-T5p" secondAttribute="top" constant="111" id="ega-lD-yeV"/>
+                            <constraint firstItem="KMv-5X-unx" firstAttribute="leading" secondItem="iFa-KB-T5p" secondAttribute="leading" constant="20" id="eue-qN-qnv"/>
+                            <constraint firstItem="l9B-uY-G1f" firstAttribute="top" secondItem="VlB-xc-1tn" secondAttribute="bottom" constant="-28" id="geI-f2-o7J"/>
+                            <constraint firstItem="ZSH-QH-PsN" firstAttribute="leading" secondItem="l9B-uY-G1f" secondAttribute="trailing" constant="16" id="lT8-7m-UAL"/>
+                            <constraint firstItem="WlL-S1-AgF" firstAttribute="leading" secondItem="1mA-Xf-JLL" secondAttribute="trailing" constant="18" id="nHC-fj-dAT"/>
+                            <constraint firstItem="QXU-XA-Tsk" firstAttribute="leading" secondItem="l9B-uY-G1f" secondAttribute="trailing" constant="16" id="o0Q-28-wBp"/>
+                            <constraint firstItem="iFa-KB-T5p" firstAttribute="trailing" secondItem="5to-Le-cde" secondAttribute="trailing" constant="36" id="oBS-ci-Vs3"/>
+                            <constraint firstItem="iFa-KB-T5p" firstAttribute="trailing" secondItem="VlB-xc-1tn" secondAttribute="trailing" constant="36" id="oSN-mq-S4J"/>
+                            <constraint firstItem="VlB-xc-1tn" firstAttribute="leading" secondItem="l9B-uY-G1f" secondAttribute="trailing" constant="16" id="qkt-cn-jL3"/>
+                            <constraint firstItem="QXU-XA-Tsk" firstAttribute="height" secondItem="5to-Le-cde" secondAttribute="height" id="vL7-R6-PXp"/>
+                            <constraint firstItem="l9B-uY-G1f" firstAttribute="top" secondItem="2AO-Ie-mKU" secondAttribute="bottom" constant="11" id="w6k-Pb-Sb9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="assetLogoImgVw" destination="1mA-Xf-JLL" id="rMe-ck-EQp"/>
+                        <outlet property="assetTeaserTxtVw" destination="KMv-5X-unx" id="IpB-sM-qKg"/>
+                        <outlet property="assetTitleLbl" destination="WlL-S1-AgF" id="rY8-9S-tIZ"/>
+                        <outlet property="contactPersonEmailLbl" destination="ZSH-QH-PsN" id="WBY-ke-4BT"/>
+                        <outlet property="contactPersonImgVw" destination="l9B-uY-G1f" id="G0E-YX-d3K"/>
+                        <outlet property="contactPersonNameLbl" destination="VlB-xc-1tn" id="QwI-yA-fF3"/>
+                        <outlet property="contactPersonNumberLbl" destination="QXU-XA-Tsk" id="COP-lT-XcA"/>
+                        <outlet property="contactPersonPositionLbl" destination="5to-Le-cde" id="vEo-aY-DT5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ewF-LE-hzS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4108.695652173913" y="-1084.1517857142856"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="arrowshape.turn.up.right.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="icon3.png" width="137" height="137"/>
+        <image name="profile_placeholder" width="34" height="32"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
