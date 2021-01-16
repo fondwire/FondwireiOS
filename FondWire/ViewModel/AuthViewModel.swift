@@ -35,11 +35,11 @@ struct LoginViewModel: AuthViewModel {
     }
     
     var buttonTitleColor: UIColor {
-        return formIsValid ? .white : UIColor(white: 1, alpha: 0.67)
+        return .black
     }
     
     var buttonBackgroundColor: UIColor {
-        return formIsValid ? UIColor.fwCyan : UIColor.fwCyan.withAlphaComponent(0.5)
+        return formIsValid ? UIColor.fwYellow : UIColor.fwYellow.withAlphaComponent(0.5)
     }   
 }
 
@@ -62,11 +62,11 @@ struct SignUpViewModel: AuthViewModel {
     }
     
     var buttonTitleColor: UIColor {
-        return formIsValid ? .white : UIColor(white: 1, alpha: 0.67)
+        return .black 
     }
     
     var buttonBackgroundColor: UIColor {
-        return formIsValid ? UIColor.fwCyan : UIColor.fwCyan.withAlphaComponent(0.5)
+        return formIsValid ? UIColor.fwYellow : UIColor.fwYellow.withAlphaComponent(0.5)
     }
 }
 
@@ -83,11 +83,11 @@ struct ResetPasswordViewModel: AuthViewModel {
     }
     
     var buttonTitleColor: UIColor {
-        return formIsValid ? .white : UIColor(white: 1, alpha: 0.67)
+        return formIsValid ? .black : UIColor(white: 1, alpha: 0.67)
     }
     
     var buttonBackgroundColor: UIColor {
-        return formIsValid ? UIColor.fwCyan : UIColor.fwCyan.withAlphaComponent(0.5)
+        return formIsValid ? UIColor.fwYellow : UIColor.fwYellow.withAlphaComponent(0.5)
     }
 }
 
@@ -109,11 +109,11 @@ struct CompanyInfoViewModel: AuthViewModel {
     
     
     var buttonTitleColor: UIColor {
-        return formIsValid ? .white : UIColor(white: 1, alpha: 0.67)
+        return formIsValid ? .black : UIColor(white: 1, alpha: 0.67)
     }
     
     var buttonBackgroundColor: UIColor {
-        return formIsValid ? UIColor.fwCyan : UIColor.fwCyan.withAlphaComponent(0.5)
+        return formIsValid ? UIColor.fwYellow : UIColor.fwYellow.withAlphaComponent(0.5)
     }
     
     

@@ -22,7 +22,7 @@ class AuthButton: UIButton {
     
         layer.cornerRadius = 5
         backgroundColor = UIColor.fwYellow.withAlphaComponent(0.5)
-        setTitleColor(UIColor(white: 0, alpha: 0.67), for: .normal)
+        setTitleColor(UIColor.black, for: .normal)
         setHeight(height: 50)
         isEnabled = false
         setTitle("Log In", for: .normal)

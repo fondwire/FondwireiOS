@@ -341,7 +341,7 @@ extension CompanyInfoController: UITableViewDelegate, UITableViewDataSource{
         
         if let cell = tableView.cellForRow(at: indexPath) {
             UIView.animate(withDuration: 0.3, animations: {
-                cell.contentView.backgroundColor = UIColor.fwCyan
+                cell.contentView.backgroundColor = UIColor.fwYellow
                 cell.contentView.backgroundColor?.withAlphaComponent(0.7)
             })
         }

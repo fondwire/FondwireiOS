@@ -123,6 +123,10 @@ class FeedController: UICollectionViewController {
         webViewController.url = url
         navigationController?.pushViewController(webViewController, animated: true)
     }
+    
+    func registerFeedTapped() {
+        
+    }
 
 }
 
@@ -161,6 +165,30 @@ extension FeedController {
                 presentCompanyInfoController()
             }
         }
+    }
+}
+
+// MARK: UICollectionViewDelegateFlowLayout
+extension FeedController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let feeds = DataService.shared.feeds else { return CGSize(width: 0, height: 0) }
+        
+        let viewModel = FeedViewModel(feed: feeds[indexPath.row])
+        
+        let feed = feeds[indexPath.row]
+        var height = viewModel.size(forWidth: view.frame.width).height
+        var width = view.frame.width
+        
+        switch feed.type {
+        case .article: height += 240
+        case .video: height += 290
+        case .podcast: print("")
+        case .event: height += 170
+        }
+        if feed.type == .event {
+            width *= 0.95
+        }
+        return CGSize(width: width, height: height)
     }
 }
 

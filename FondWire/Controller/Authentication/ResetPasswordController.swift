@@ -33,7 +33,7 @@ class ResetPasswordController: UIViewController {
         let button = UIButton(type: .system)
         button.addTarget(self, action: #selector(handleDismissal), for: .touchUpInside)
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        button.tintColor = .fwCyan
+        button.tintColor = .fwYellow
         return button
     }()
     

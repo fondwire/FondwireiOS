@@ -377,7 +377,6 @@
 				FD5EDF0324D4B61C00424B2A /* User.swift */,
 				FDDA4711251FDB45007A245C /* Asset.swift */,
 				FD5449F92585E8840072BADE /* DataService.swift */,
-				FD5449FD25869A6E0072BADE /* FeedsDataSource.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -455,6 +454,7 @@
 			children = (
 				FD504B7424BF8BE400B6E741 /* FeedController.swift */,
 				FDA6E4AC2582A8C100FB9875 /* FeedController.storyboard */,
+				FD5449FD25869A6E0072BADE /* FeedsDataSource.swift */,
 				FD9E723A259D8F8500BD9A53 /* Video */,
 				FD9E723B259D8F9500BD9A53 /* Event */,
 				FD9E723C259D8FA800BD9A53 /* Article */,

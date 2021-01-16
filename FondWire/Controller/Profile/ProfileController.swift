@@ -228,7 +228,7 @@ extension ProfileController {
             }
             if action?.rawValue == 4 {
                 if Auth.auth().currentUser == nil {
-                    cell.titleButton.setTitleColor(.fwCyan, for: .normal)
+                    cell.titleButton.setTitleColor(.fwYellow, for: .normal)
                     cell.titleButton.setTitle("Login", for: .normal)
                 } else {
                     cell.titleButton.setTitleColor(.red, for: .normal)

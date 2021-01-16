@@ -76,7 +76,7 @@ class SignUpController: UIViewController {
     private let assetManagerSwitch: UISwitch = {
         let switchControl = UISwitch()
         switchControl.tintColor = .yellow
-        switchControl.onTintColor = .fwCyan
+        switchControl.onTintColor = .fwYellow
         switchControl.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
         switchControl.transform = CGAffineTransform(scaleX: 0.7, y: 0.7);
         return switchControl
@@ -86,7 +86,7 @@ class SignUpController: UIViewController {
           let button = UIButton(type: .system)
           button.addTarget(self, action: #selector(handleDismissal), for: .touchUpInside)
           button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-          button.tintColor = .fwCyan
+          button.tintColor = .fwYellow
           return button
       }()
     
@@ -198,42 +198,42 @@ class SignUpController: UIViewController {
         guard let fullName = fullNameTextField.text else { return }
         guard let confirmPassword = confirmPasswordTextfield.text else { return }
         
-        
         let credentials = AuthCredentials(email: email, password: password, fullname: fullName, companyName: "", profileImage: #imageLiteral(resourceName: "profile_placeholder"), isAssetManager: assetManagerSwitch.isOn)
         
-        AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
-            if let error = error {
-                ProgressHUD.showError("\(error.localizedDescription)")
-                
+        if self.assetManagerSwitch.isOn {
+            var isAssetManager = assetManagerSwitch.isOn
+            if self.assetManagerSwitch.isOn {
+                isAssetManager = true
+            }
+            
+            self.values = ["fullname": fullName,
+                           "email": email,
+                           "profileImage": "",
+                           "companyName": "",
+                           "isAssetManager":isAssetManager] as [String: AnyObject]
+            
+            let controller = CompanyInfoController()
+            controller.delegate = self
+            controller.values = self.values!
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true, completion: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     ProgressHUD.dismiss()
                 }
-            } else {
-                var isAssetManager = false
-                if self.assetManagerSwitch.isOn {
-                    isAssetManager = true
-                }
-                
-                self.values = ["fullname": fullName,
-                               "email": email,
-                               "profileImage": "",
-                               "companyName": "",
-                               "isAssetManager":isAssetManager] as [String: AnyObject]
-                
-                
-                let controller = CompanyInfoController()
-                controller.delegate = self
-                controller.values = self.values!
-                let nav = UINavigationController(rootViewController: controller)
-                nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true, completion: {
+            })
+        } else {
+            AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
+                if let error = error {
+                    ProgressHUD.showError("\(error.localizedDescription)")
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         ProgressHUD.dismiss()
                     }
-                })
-            }
+                }
             }
         }
+    }
         
        
 
