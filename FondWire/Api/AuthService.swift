@@ -12,6 +12,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
+import ProgressHUD
 
 
 struct AuthCredentials {
@@ -39,39 +40,42 @@ struct AuthService {
         let isAssetManager = credentials.isAssetManager
         
         var imageData: Data
-
+        
         if profileImage.jpegData(compressionQuality: 0.3) == nil {
-           imageData = #imageLiteral(resourceName: "profile_placeholder").jpegData(compressionQuality: 0.3)!
+            imageData = #imageLiteral(resourceName: "profile_placeholder").jpegData(compressionQuality: 0.3)!
         } else {
             imageData = profileImage.jpegData(compressionQuality: 0.3)!
         }
         
-          let filename = NSUUID().uuidString
-          let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
+        let filename = NSUUID().uuidString
+        let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
         
         storageRef.putData(imageData, metadata: nil) { (meta, error) in
             
             if let error = error {
-                print("\(error.localizedDescription)")
+                ProgressHUD.showError("\(error.localizedDescription)")
             }
-                 storageRef.downloadURL { (url, error) in
-                     guard let profileImgURL = url?.absoluteString else { return }
-
-                     Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                         if let error = error {
-                             print("Error: \(error.localizedDescription)")
-                         } else {
-                             guard let uid = result?.user.uid else { return }
-                             let values = ["email": email,
-                                           "companyName" : companyName,
-                                           "fullname": fullname,
-                                             "profileImageURL": profileImgURL,
-                                             "isAssetManager" : isAssetManager] as [String : Any]
-
-                            REF_USERS.child(uid).updateChildValues(values, withCompletionBlock: completion)
-                         }
-                     }
-                 }
-             }
+            storageRef.downloadURL { (url, error) in
+                guard let profileImgURL = url?.absoluteString else { return }
+                
+                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                    if let error = error {
+                        ProgressHUD.showError("\(error.localizedDescription)")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            ProgressHUD.dismiss()
+                        }
+                    } else {
+                        guard let uid = result?.user.uid else { return }
+                        let values = ["email": email,
+                                      "companyName" : companyName,
+                                      "fullname": fullname,
+                                      "profileImageURL": profileImgURL,
+                                      "isAssetManager" : isAssetManager] as [String : Any]
+                        
+                        REF_USERS.child(uid).updateChildValues(values, withCompletionBlock: completion)
+                    }
+                }
+            }
+        }
     }
 }

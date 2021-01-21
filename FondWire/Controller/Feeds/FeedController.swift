@@ -36,6 +36,7 @@ class FeedController: UICollectionViewController {
         tabBarController?.tabBar.isHidden = false
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "userUpdatedFromFeed"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCollectionView), name: NSNotification.Name(rawValue: "feedsFetched"), object: nil)
+        presentOnboardingController()
     }
 
     override func viewDidLoad() {
@@ -77,15 +78,16 @@ class FeedController: UICollectionViewController {
         collectionView.backgroundColor = .fwFeedBackground
         navigationItem.title = "ALL FEEDS"
         collectionView.showsVerticalScrollIndicator = true
-        presentOnboardingController()
     }
     
     func presentOnboardingController()  {
-        if defaults.bool(forKey: "userLoggedIn") == false {
+        if defaults.bool(forKey: "onboardingPresented") == false {
             let controller = WelcomeController()
+            controller.modalTransitionStyle = .crossDissolve
             controller.modalPresentationStyle = .fullScreen
             controller.delegate = self
-            present(controller, animated: false, completion: nil)
+            present(controller, animated: true)
+            defaults.set(true, forKey: "onboardingPresented")
         } 
     }
     
@@ -107,7 +109,6 @@ class FeedController: UICollectionViewController {
         let controller = CompanyInfoController()
         controller.delegate = self
         controller.user =  user
-        controller.isPresentedFromFeedVC = true
         let nav = UINavigationController(rootViewController: controller)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
@@ -152,7 +153,6 @@ extension FeedController {
         if Auth.auth().currentUser == nil {
             presentLoginController()
         } else {
-            if user?.companyName != "" {
                 guard let feeds = DataService.shared.feeds else { return }
                 let feed = feeds[indexPath.row]
                 if feed.type == .event {
@@ -161,9 +161,6 @@ extension FeedController {
                 } else {
                     presentFeedDetailController(withFeed: feed)
                 }
-            } else {
-                presentCompanyInfoController()
-            }
         }
     }
 }

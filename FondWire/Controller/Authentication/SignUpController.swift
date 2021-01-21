@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Foundation
 import FirebaseAuth
 import ProgressHUD
 
@@ -186,19 +185,20 @@ class SignUpController: UIViewController {
     }
     
     @objc func handleDismissal() {
-         navigationController?.popViewController(animated: true)
-     }
+        navigationController?.popViewController(animated: true)
+    }
     
     @objc func handleSignUpTapped() {
-
-        ProgressHUD.show("Singing Up")
         
-        guard let email = emailTextField.text else { return }
-        guard let password = passwordTextfield.text else { return }
-        guard let fullName = fullNameTextField.text else { return }
-        guard let confirmPassword = confirmPasswordTextfield.text else { return }
+        ProgressHUD.show("Signing Up")
         
-        let credentials = AuthCredentials(email: email, password: password, fullname: fullName, companyName: "", profileImage: #imageLiteral(resourceName: "profile_placeholder"), isAssetManager: assetManagerSwitch.isOn)
+        guard let email = emailTextField.text,
+              let password = passwordTextfield.text,
+              let fullName = fullNameTextField.text,
+              let confirmPassword = confirmPasswordTextfield.text else { return }
+        guard password == confirmPassword else { return }
+        
+        let credentials = AuthCredentials(email: email, password: password, fullname: fullName, companyName: "", profileImage: #imageLiteral(resourceName: "profile_placeholder"), isAssetManager: false)
         
         if self.assetManagerSwitch.isOn {
             var isAssetManager = assetManagerSwitch.isOn
@@ -212,16 +212,26 @@ class SignUpController: UIViewController {
                            "companyName": "",
                            "isAssetManager":isAssetManager] as [String: AnyObject]
             
-            let controller = CompanyInfoController()
-            controller.delegate = self
-            controller.values = self.values!
-            let nav = UINavigationController(rootViewController: controller)
-            nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: true, completion: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    ProgressHUD.dismiss()
+            AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
+                if let error = error {
+                    ProgressHUD.showError("\(error.localizedDescription)")
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        ProgressHUD.dismiss()
+                    }
+                } else {
+                    let controller = CompanyInfoController()
+                    controller.delegate = self
+                    controller.values = self.values!
+                    let nav = UINavigationController(rootViewController: controller)
+                    nav.modalPresentationStyle = .fullScreen
+                    self.present(nav, animated: true, completion: {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            ProgressHUD.dismiss()
+                        }
+                    })
                 }
-            })
+            }
         } else {
             AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
                 if let error = error {
@@ -230,11 +240,17 @@ class SignUpController: UIViewController {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         ProgressHUD.dismiss()
                     }
+                } else {
+                    self.navigationController?.popViewController(animated: false)
+                    self.delegate?.registrationComplete()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        ProgressHUD.dismiss()
+                    }
                 }
             }
         }
     }
-        
+    
        
 
     @objc func handleAlreadyHaveAnAccountTapped() {

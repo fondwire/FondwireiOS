@@ -139,7 +139,7 @@ class ProfileController: UICollectionViewController {
 
         
         UserService.shared.saveProfileImage(image: image) { (profileImageURL) in
-            ProgressHUD.showSuccess("Avatar Updates")
+            ProgressHUD.showSuccess("Avatar Updated")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 ProgressHUD.dismiss()
             }
@@ -149,9 +149,7 @@ class ProfileController: UICollectionViewController {
     
    fileprivate func logOutUsr(handleComplete:(()->()))  {
     ProgressHUD.show("Loging Out")
-
         do {
-
             try Auth.auth().signOut()
             DispatchQueue.main.async {
                 ProgressHUD.showSucceed("Logged Out", interaction: true)
@@ -228,7 +226,7 @@ extension ProfileController {
             }
             if action?.rawValue == 4 {
                 if Auth.auth().currentUser == nil {
-                    cell.titleButton.setTitleColor(.fwYellow, for: .normal)
+                    cell.titleButton.setTitleColor(.fwCyan, for: .normal)
                     cell.titleButton.setTitle("Login", for: .normal)
                 } else {
                     cell.titleButton.setTitleColor(.red, for: .normal)

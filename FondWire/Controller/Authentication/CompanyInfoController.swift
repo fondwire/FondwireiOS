@@ -6,9 +6,7 @@
 //  Copyright © 2020 Edil Ashimov. All rights reserved.
 //
 
-import Foundation
 import UIKit
-//import JGProgressHUD
 import FirebaseAuth
 
 protocol CompanyInfoControllerDelegate: class {
@@ -19,14 +17,12 @@ protocol CompanyInfoControllerDelegate: class {
 class CompanyInfoController: UIViewController {
     
     //MARK: -  Properties
-//    var hud = JGProgressHUD(style: .dark)
-    var isPresentedFromFeedVC = false
     weak var delegate: CompanyInfoControllerDelegate?
     var textField =  UITextField()
     var tableView = UITableView()
     var selectedIndexPath: IndexPath?
     private var viewModel = CompanyInfoViewModel()
-    var values = [String: AnyObject]()
+    var values:[String: AnyObject]?
 
     private let iconStackView: UIStackView = {
         let almostDoneLabel = UILabel()
@@ -69,15 +65,7 @@ class CompanyInfoController: UIViewController {
         button.titleLabel?.font = .gothamMedium(ofSize: 14)
         return button
     }()
-    
-    private let dismissButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "xmark"), for: .normal)
-        button.tintColor = UIColor(white: 0.8, alpha: 1)
-        button.addTarget(self, action: #selector(handleDismissTapped), for: .touchUpInside)
-        button.setDimensions(height: 40, width: 40)
-        return button
-    }()
+
     
     // The sample values
     var typeValues = ["Type 1", "Type 2", "Type 3", "Type 4"]
@@ -101,7 +89,6 @@ class CompanyInfoController: UIViewController {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = true
         companyNameTextField.becomeFirstResponder()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -121,30 +108,15 @@ class CompanyInfoController: UIViewController {
            // so will set height constraint to content size
            // Alternatively can set to another size, such as using row heights and setting frame
         tableView.setDimensions(height: tableView.contentSize.height, width: tableView.frame.width)
-        
     }
-    
-    
-    //Selectors: - Selectors
-    
-    @objc func handleDismissTapped() {
-        dismiss(animated: false, completion: {
-        })
-    }
-    
+
     //MARK: - Helpers
     func configureUI() {
-        
         companyTypeTextField.delegate = self
         companyNameTextField.delegate = self
         self.view.backgroundColor = .fwDarkBlueBg
         navigationController?.navigationBar.isHidden = true
         navigationController?.navigationBar.barStyle = .black
-        
-//        if isPresentedFromFeedVC {
-            view.addSubview(dismissButton)
-            dismissButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: 15, paddingRight: 10)
-//        }
 
         view.addSubview(iconStackView)
         iconStackView.anchor(top:view.safeAreaLayoutGuide.topAnchor, paddingTop: 60, width: 200)
@@ -177,7 +149,6 @@ class CompanyInfoController: UIViewController {
     func configureNotificationObservers()  {
         companyNameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         companyTypeTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-
       }
     
     // Manage keyboard and tableView visibility
@@ -193,70 +164,61 @@ class CompanyInfoController: UIViewController {
     }
     
     //MARK: - Selectors
-    
     @objc func handleFinishButtonTapped() {
-//        self.hud.show(in: self.view)
-        guard let companyName = companyNameTextField.text else { return }
-        guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
-        guard let companyType = companyTypeTextField.text else { return }
-
-        values["companyName"] = companyName as AnyObject
-//        var user: User!
-        
-        if navigationController?.navigationBar.isHidden == true {
-            guard let tempUser = user else { return }
-            self.values = ["fullname": tempUser.fullname,
-                           "email": tempUser.email,
-                           "profileImage": tempUser.profileImageUrl as Any,
+            guard let companyName = companyNameTextField.text,
+                  let currentUserUid = Auth.auth().currentUser?.uid,
+                  let companyType = companyTypeTextField.text,
+                  var values = values else { return }
+            
+            values["companyName"] = companyName as AnyObject
+            
+            guard var user = user else { return }
+            self.values = ["fullname": user.fullname,
+                           "email": user.email,
+                           "profileImage": user.profileImageUrl as Any,
                            "companyName": companyName] as [String: AnyObject]
             user = User(uid: currentUserUid, dictionary: values)
             
-        } else {
-            user = User(uid: currentUserUid, dictionary: values)
-        }
-        
-        UserService.shared.saveUserData(user: user!) { (error, ref) in
-            if let _ = error {
-                // IN CASE OF ERROR
-            } else {
-                
-                AssetService.shared.fetchAssets { (assets) in
-                  
-                    //Checking if the company already exists
-//                    let companyExists = assets.contains { $0.name == companyName }
-                    
-                    let companyExists = assets.contains { asset in
-                        if asset.name == companyName {
-                            //  Getting a list of existing managers and adding a new one
-                            var managersDict = asset.managers?["managers"] as! [String: Any]
-                            managersDict.merge(dict: [self.user!.fullname: currentUserUid])
-                            //Adding a new manager to an existing company
-                            AssetService.shared.addNewManager(companyName: companyName, managers: managersDict) { (error, ref) in
-                                
-                                //once it is added dissming and callin the delegate
+            UserService.shared.saveUserData(user: user) { (error, ref) in
+                if let _ = error {
+                    // IN CASE OF ERROR
+                } else {
+                    AssetService.shared.fetchAssets { (assets) in
+                        
+                        //Checking if the company already exists
+                        
+                        let companyExists = assets.contains { asset in
+                            if asset.name == companyName {
+                                //  Getting a list of existing managers and adding a new one
+                                var managersDict = asset.managers?["managers"] as! [String: Any]
+                                managersDict.merge(dict: [self.user!.fullname: currentUserUid])
+                                //Adding a new manager to an existing company
+                                AssetService.shared.addNewManager(companyName: companyName, managers: managersDict) { (error, ref) in
+                                    
+                                    //once it is added dissming and callin the delegate
+                                    self.dismiss(animated: true) {
+                                        self.delegate?.companyDidSpecified()
+                                        managersDict.removeAll(keepingCapacity: true)
+                                    }
+                                }
+                                return true
+                            }
+                            return false
+                        }
+                        if !companyExists {
+                            // Assuming that the the company doesn't exist we are creating a new asset and adding a new manager
+                            AssetService.shared.createNewAsset(companyName: companyName, managerUid: self.user!.uid, managerName: self.user!.fullname, companyType: companyType) { (error, ref) in
                                 self.dismiss(animated: true) {
                                     self.delegate?.companyDidSpecified()
-                                    managersDict.removeAll(keepingCapacity: true)
                                 }
                             }
-                            return true
+                            
                         }
-                        return false
-                    }
-                    if !companyExists {
-                        // Assuming that the the company doesn't exist we are creating a new asset and adding a new manager
-                        AssetService.shared.createNewAsset(companyName: companyName, managerUid: self.user!.uid, managerName: self.user!.fullname, companyType: companyType) { (error, ref) in
-                            self.dismiss(animated: true) {
-                                self.delegate?.companyDidSpecified()
-                            }
-                        }
-                    }
                 }
             }
         }
     }
-    
-    @objc func handleArrowButtonTapped() {
+  @objc func handleArrowButtonTapped() {
         UIView.animate(withDuration: 0.3) {
             self.tableView.isHidden.toggle()
         }
