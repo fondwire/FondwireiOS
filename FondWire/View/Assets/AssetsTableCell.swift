@@ -42,6 +42,16 @@ class AssetsTableCell: UITableViewCell {
         lbl.textColor = .darkGray
         return lbl
     }()
+    
+    private let followButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.gothamMedium(ofSize: 10)
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular, scale: .large)
+        button.setImage(UIImage(systemName: "checkmark.circle", withConfiguration: largeConfig)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: largeConfig)?.withRenderingMode(.alwaysTemplate), for: .selected)
+        button.tintColor = .fwCyan
+        return button
+    }()
 
     override var frame: CGRect {
         get {
@@ -66,13 +76,23 @@ class AssetsTableCell: UITableViewCell {
         let labelStack = UIStackView(arrangedSubviews: [assetNameLabel, assetSymbolLabel])
         labelStack.axis = .vertical
         labelStack.spacing = 0
+        contentView.addSubview(followButton)
+        followButton.anchor(right: rightAnchor, paddingRight: 20)
+        followButton.centerY(inView: self)
+        followButton.setDimensions(height: 40, width: 40)
+        followButton.addTarget(self, action: #selector(handleFollowTapped(sender:)), for: .touchUpInside)
+
         
         addSubview(assetProfileImgVw)
         assetProfileImgVw.setDimensions(height: 40, width: 40)
         assetProfileImgVw.centerY(inView: self)
         assetProfileImgVw.anchor(left: leftAnchor, paddingLeft: 20)
         addSubview(labelStack)
-        labelStack.anchor(top: topAnchor, left: assetProfileImgVw.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 25, paddingLeft: 20, paddingBottom: 35, paddingRight: 10)
+        labelStack.anchor(top: topAnchor, left: assetProfileImgVw.rightAnchor, bottom: bottomAnchor, right: followButton.leftAnchor, paddingTop: 25, paddingLeft: 20, paddingBottom: 35, paddingRight: 10)
+  
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {
@@ -81,6 +101,7 @@ class AssetsTableCell: UITableViewCell {
         additionalSeparator.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         self.addSubview(additionalSeparator)
     }
+    
     
     func configure()  {
         guard let asset = asset else { return }
@@ -95,7 +116,16 @@ class AssetsTableCell: UITableViewCell {
         }
      }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    
+    @objc func handleFollowTapped(sender: UIButton)  {
+        let generator = UINotificationFeedbackGenerator()
+
+        followButton.isSelected = !followButton.isSelected
+        if followButton.isSelected {
+            generator.notificationOccurred(.error)
+        } else {
+            generator.notificationOccurred(.success)
+        }
+
     }
 }
