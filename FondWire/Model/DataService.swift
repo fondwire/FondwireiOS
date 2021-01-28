@@ -13,6 +13,7 @@ final class DataService {
     static let shared = DataService()
     var assets: [Asset] = []
     var feeds: [Feed]? = []
+    var currentUser: User?
     private init() {}
 }
 

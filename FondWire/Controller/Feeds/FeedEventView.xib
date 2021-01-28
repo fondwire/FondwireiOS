@@ -3,7 +3,6 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,17 +23,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="y0b-kh-m6Y">
-                    <rect key="frame" x="20" y="10" width="299" height="24"/>
+                    <rect key="frame" x="20" y="10" width="210" height="24"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" EVENT INVITATION" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CtA-pC-p7T">
-                            <rect key="frame" x="0.0" y="0.0" width="299" height="11"/>
+                            <rect key="frame" x="0.0" y="0.0" width="210" height="11"/>
                             <color key="tintColor" red="0.086274509799999996" green="0.1058823529" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="10"/>
                             <color key="textColor" red="0.041025616229999999" green="0.73707759380000004" blue="0.99111670259999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vtE-qq-s4T">
-                            <rect key="frame" x="0.0" y="13" width="299" height="11"/>
+                            <rect key="frame" x="0.0" y="13" width="210" height="11"/>
                             <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="10"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -80,28 +79,26 @@
                     </attributedString>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1pX-Pg-wqh">
-                    <rect key="frame" x="109" y="153" width="285" height="24"/>
+                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1pX-Pg-wqh">
+                    <rect key="frame" x="373" y="12" width="19" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="285" id="aL8-V8-xq4"/>
-                        <constraint firstAttribute="height" constant="24" id="kgk-9H-XtX"/>
+                        <constraint firstAttribute="height" constant="20" id="NuA-pA-IL5"/>
+                        <constraint firstAttribute="width" constant="19" id="di5-wg-wVP"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="14"/>
+                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="12"/>
                     <color key="tintColor" systemColor="systemGray2Color"/>
-                    <state key="normal" title="CLICK TO ATTEND  ">
+                    <state key="normal" image="link">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eww-BF-auQ">
-                    <rect key="frame" x="369" y="12" width="25" height="24"/>
+                    <rect key="frame" x="369" y="156" width="25" height="24"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="25" id="JKQ-fy-eUd"/>
-                        <constraint firstAttribute="height" constant="24" id="V3e-hp-hr3"/>
+                        <constraint firstAttribute="width" constant="25" id="1HG-L3-HfW"/>
+                        <constraint firstAttribute="height" constant="24" id="UHE-W4-UuU"/>
                     </constraints>
                     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal">
-                        <imageReference key="image" image="xmark.circle.fill" catalog="system" symbolScale="medium" renderingMode="template"/>
-                    </state>
+                    <state key="normal" image="close"/>
                     <connections>
                         <action selector="dismissTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="cv2-9Q-0BI"/>
                     </connections>
@@ -114,17 +111,17 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4Bj-hi-yvW" secondAttribute="trailing" constant="20" id="3zy-GL-rub"/>
                 <constraint firstItem="4Bj-hi-yvW" firstAttribute="top" secondItem="bCf-t5-2KH" secondAttribute="bottom" constant="11" id="8aa-vU-0ph"/>
                 <constraint firstItem="2it-h5-uHx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="8zB-iI-PI7"/>
-                <constraint firstItem="1pX-Pg-wqh" firstAttribute="top" secondItem="bCf-t5-2KH" secondAttribute="bottom" constant="90" id="MR9-Uv-f8U"/>
+                <constraint firstItem="1pX-Pg-wqh" firstAttribute="leading" secondItem="y0b-kh-m6Y" secondAttribute="trailing" constant="143" id="Aaw-Hv-Djz"/>
+                <constraint firstItem="1pX-Pg-wqh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="Ccs-ND-ju2"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bCf-t5-2KH" secondAttribute="trailing" constant="20" id="Nva-OH-0zA"/>
-                <constraint firstAttribute="trailing" secondItem="eww-BF-auQ" secondAttribute="trailing" constant="20" id="PiH-wK-JFm"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1pX-Pg-wqh" secondAttribute="trailing" constant="20" id="Txa-AD-jxC"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eww-BF-auQ" secondAttribute="bottom" constant="21" id="SZI-PP-NDf"/>
                 <constraint firstItem="y0b-kh-m6Y" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="Xqk-sJ-kKP"/>
                 <constraint firstItem="4Bj-hi-yvW" firstAttribute="leading" secondItem="2it-h5-uHx" secondAttribute="trailing" constant="8" symbolic="YES" id="Zqz-Nw-cHX"/>
                 <constraint firstItem="y0b-kh-m6Y" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="dv5-j3-5XS"/>
                 <constraint firstItem="bCf-t5-2KH" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="fMc-xS-fZT"/>
+                <constraint firstAttribute="trailing" secondItem="1pX-Pg-wqh" secondAttribute="trailing" constant="22" id="gjF-o9-cI7"/>
                 <constraint firstItem="2it-h5-uHx" firstAttribute="top" secondItem="bCf-t5-2KH" secondAttribute="bottom" constant="12" id="hV7-SC-B4q"/>
-                <constraint firstItem="eww-BF-auQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="jtF-yv-CUI"/>
-                <constraint firstItem="eww-BF-auQ" firstAttribute="leading" secondItem="y0b-kh-m6Y" secondAttribute="trailing" constant="50" id="oWF-Hn-3Tn"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eww-BF-auQ" secondAttribute="trailing" constant="20" id="sn3-kk-UaZ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -140,7 +137,8 @@
         </view>
     </objects>
     <resources>
-        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="close" width="20" height="20"/>
+        <image name="link" width="28" height="28"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

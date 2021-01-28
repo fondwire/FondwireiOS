@@ -16,7 +16,6 @@ protocol WelcomeControllerDelegate: class {
 class WelcomeController: UIViewController {
     
     weak var delegate: WelcomeControllerDelegate?
-    let generator = UINotificationFeedbackGenerator()
 
     private let welcomeLabel: UILabel = {
         let label = UILabel()
@@ -66,7 +65,7 @@ class WelcomeController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-            generator.notificationOccurred(.error)
+        Vibration.error.vibrate()
     }
     
     override func viewDidLoad() {

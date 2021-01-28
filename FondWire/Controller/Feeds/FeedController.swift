@@ -17,7 +17,6 @@ class FeedController: UICollectionViewController {
     
     //MARK: - Properties    
     var webView = WKWebView()
-    var user: User?
     var dataSource: FeedsDataSource?
     
     private let filterBarButton: UIButton = {
@@ -42,20 +41,9 @@ class FeedController: UICollectionViewController {
     override func viewDidLoad() {
         super .viewDidLoad()
         configureUI()
-        fetchUser()
         updateCollectionView()
     }
-    
-     //MARK: - API
-    func fetchUser() {
-        if Auth.auth().currentUser != nil {
-            UserService.shared.fetchUser(uid: Auth.auth().currentUser!.uid) { (user) in
-                self.user = user
-            }
-        }
-    }
-    
-    @objc func updateCollectionView()  {
+        @objc func updateCollectionView()  {
         guard let feeds = DataService.shared.feeds else { return }
         dataSource = FeedsDataSource(collectionView: collectionView)
         collectionView.dataSource = dataSource
@@ -88,6 +76,11 @@ class FeedController: UICollectionViewController {
             controller.delegate = self
             present(controller, animated: true)
             defaults.set(true, forKey: "onboardingPresented")
+            
+            let defaultAssets = ["Fondwire"]
+            let userPreferences = ["selectedAssets": defaultAssets]
+            let userInfo = ["notUser": userPreferences]
+            UserDefaults.standard.set(userInfo, forKey: "userInfo")
         } 
     }
     
@@ -104,16 +97,7 @@ class FeedController: UICollectionViewController {
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
     }
-    
-    func presentCompanyInfoController() {
-        let controller = CompanyInfoController()
-        controller.delegate = self
-        controller.user =  user
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
-    }
-    
+
     func presentFeedDetailController(withFeed feed: Feed) {
         let detailController = FeedDetailController(feed: feed)
         navigationController?.pushViewController(detailController, animated: true)
@@ -191,14 +175,12 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 
 extension FeedController: CompanyInfoControllerDelegate {
     func companyDidSpecified() {
-        fetchUser()
     }
 }
 
 extension FeedController: LoginControllerDelegate {
     func loginCompleted() {
         collectionView(collectionView, didSelectItemAt: selectedIndexPath)
-        fetchUser()
     }
 }
 

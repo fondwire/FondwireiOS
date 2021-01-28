@@ -20,9 +20,9 @@ struct FeedViewModel {
           return feed.title
     }
     
-    var media: String? {
-        guard let media = feed.media else { return nil }
-        return media
+    var link: String? {
+        guard let link = feed.link else { return nil }
+        return link
     }
 
     

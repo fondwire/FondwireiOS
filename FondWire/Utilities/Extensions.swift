@@ -162,15 +162,10 @@ extension UIColor {
 
     static let fwFeedDarkBlue = UIColor.rgb(red: 34, green: 37, blue: 46)
     static let fwMatteDarkBlue = UIColor.rgb(red: 32, green: 35, blue: 40)
-
-
-
 }
 
 
 // MARK: - UIFont
-
-
 extension UIFont {
     
     class func gothamBook(ofSize size: CGFloat) -> UIFont {
@@ -208,16 +203,7 @@ extension UIFont {
 //        return UIFont.systemFont(ofSize: size, weight: .thin)
 
     }
-    
-//    class func newRomanRegular(ofSize size: CGFloat) -> UIFont {
-//        //        return UIFont(name: "Gotham-Thin", size: size)!
-//        return UIFont(name: "Times New Roman Regular", size: size)!
-//    }
-//
-//    class func newRomanBold(ofSize size: CGFloat) -> UIFont {
-//        //        return UIFont(name: "Gotham-Thin", size: size)!
-//        return UIFont(name: "Times New Roman", size: size)!
-//    }
+
     }
 
 // MARK: - UIViewController
@@ -264,32 +250,6 @@ extension String {
     }
     
 }
-//
-//extension String {
-//    var htmlToAttributedString: NSAttributedString? {
-//        guard let data = data(using: .utf8) else { return nil }
-//        do {
-//            
-//            let style = NSMutableParagraphStyle()
-//                 style.lineSpacing = 5
-//                 style.alignment = .left
-//                 style.lineBreakMode = .byWordWrapping
-//                 
-//                 let attributes = [NSAttributedString.Key.paragraphStyle : style,
-//                                   NSAttributedString.Key.font: UIFont.gothamLight(ofSize: 14),
-//                                   NSAttributedString.Key.foregroundColor: UIColor(white: 1, alpha: 1)]
-//
-//
-//
-//            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
-//        } catch {
-//            return nil
-//        }
-//    }
-//    var htmlToString: String {
-//        return htmlToAttributedString?.string ?? ""
-//    }
-//}
 
 extension UITextView {
     func setHTMLFromString(htmlText: String) {
@@ -313,4 +273,49 @@ extension UIView {
         bottomAnchor.constraint(equalTo: superView.bottomAnchor).isActive = true
         rightAnchor.constraint(equalTo: superView.rightAnchor).isActive = true
     }
+}
+
+
+enum Vibration {
+       case error
+       case success
+       case warning
+       case light
+       case medium
+       case heavy
+       @available(iOS 13.0, *)
+       case soft
+       @available(iOS 13.0, *)
+       case rigid
+       case selection
+       case oldSchool
+
+       public func vibrate() {
+           switch self {
+           case .error:
+               UINotificationFeedbackGenerator().notificationOccurred(.error)
+           case .success:
+               UINotificationFeedbackGenerator().notificationOccurred(.success)
+           case .warning:
+               UINotificationFeedbackGenerator().notificationOccurred(.warning)
+           case .light:
+               UIImpactFeedbackGenerator(style: .light).impactOccurred()
+           case .medium:
+               UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+           case .heavy:
+               UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+           case .soft:
+               if #available(iOS 13.0, *) {
+                   UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+               }
+           case .rigid:
+               if #available(iOS 13.0, *) {
+                   UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+               }
+           case .selection:
+               UISelectionFeedbackGenerator().selectionChanged()
+           case .oldSchool:
+            ""
+           }
+   }
 }

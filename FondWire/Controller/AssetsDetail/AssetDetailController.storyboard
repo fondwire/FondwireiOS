@@ -38,7 +38,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j98-Gz-xHP">
-                                <rect key="frame" x="369" y="61" width="25" height="24"/>
+                                <rect key="frame" x="354" y="102" width="25" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="j98-Gz-xHP" secondAttribute="height" multiplier="25:24" id="8tc-yW-Yxf"/>
                                     <constraint firstAttribute="width" constant="25" id="xUv-Tu-Msu"/>
@@ -128,9 +128,9 @@
                             <constraint firstItem="ZSH-QH-PsN" firstAttribute="height" secondItem="QXU-XA-Tsk" secondAttribute="height" id="S5H-80-bQG"/>
                             <constraint firstItem="KMv-5X-unx" firstAttribute="top" secondItem="WlL-S1-AgF" secondAttribute="bottom" constant="12" id="WSo-UW-0PV"/>
                             <constraint firstItem="iFa-KB-T5p" firstAttribute="trailing" secondItem="ZSH-QH-PsN" secondAttribute="trailing" constant="36" id="Xag-wf-ceW"/>
-                            <constraint firstItem="iFa-KB-T5p" firstAttribute="trailing" secondItem="j98-Gz-xHP" secondAttribute="trailing" constant="20" id="YbI-MF-2Y1"/>
+                            <constraint firstItem="iFa-KB-T5p" firstAttribute="trailing" secondItem="j98-Gz-xHP" secondAttribute="trailing" constant="35" id="YbI-MF-2Y1"/>
                             <constraint firstItem="2AO-Ie-mKU" firstAttribute="leading" secondItem="iFa-KB-T5p" secondAttribute="leading" constant="24" id="ZH8-eD-r7u"/>
-                            <constraint firstItem="j98-Gz-xHP" firstAttribute="top" secondItem="iFa-KB-T5p" secondAttribute="top" constant="17" id="ZW1-4z-qdI"/>
+                            <constraint firstItem="j98-Gz-xHP" firstAttribute="top" secondItem="iFa-KB-T5p" secondAttribute="top" constant="58" id="ZW1-4z-qdI"/>
                             <constraint firstItem="QXU-XA-Tsk" firstAttribute="top" secondItem="5to-Le-cde" secondAttribute="bottom" id="cOC-U5-yUv"/>
                             <constraint firstItem="l9B-uY-G1f" firstAttribute="top" secondItem="2AO-Ie-mKU" secondAttribute="bottom" constant="11" id="cr5-9z-GqM"/>
                             <constraint firstItem="ZSH-QH-PsN" firstAttribute="top" secondItem="QXU-XA-Tsk" secondAttribute="bottom" id="dgK-wW-yfD"/>

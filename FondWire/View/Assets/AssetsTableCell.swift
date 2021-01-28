@@ -46,9 +46,8 @@ class AssetsTableCell: UITableViewCell {
     private let followButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont.gothamMedium(ofSize: 10)
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular, scale: .large)
-        button.setImage(UIImage(systemName: "checkmark.circle", withConfiguration: largeConfig)?.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: largeConfig)?.withRenderingMode(.alwaysTemplate), for: .selected)
+        button.setImage(UIImage(named: "unchecked"), for: .normal)
+        button.setImage(UIImage(named: "checked"), for: .selected)
         button.tintColor = .fwCyan
         return button
     }()
@@ -79,7 +78,7 @@ class AssetsTableCell: UITableViewCell {
         contentView.addSubview(followButton)
         followButton.anchor(right: rightAnchor, paddingRight: 20)
         followButton.centerY(inView: self)
-        followButton.setDimensions(height: 40, width: 40)
+        followButton.setDimensions(height: 25, width: 25)
         followButton.addTarget(self, action: #selector(handleFollowTapped(sender:)), for: .touchUpInside)
 
         
@@ -118,13 +117,11 @@ class AssetsTableCell: UITableViewCell {
     
     
     @objc func handleFollowTapped(sender: UIButton)  {
-        let generator = UINotificationFeedbackGenerator()
-
         followButton.isSelected = !followButton.isSelected
         if followButton.isSelected {
-            generator.notificationOccurred(.error)
+            Vibration.light.vibrate()
         } else {
-            generator.notificationOccurred(.success)
+            Vibration.medium.vibrate()
         }
 
     }

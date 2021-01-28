@@ -23,9 +23,8 @@ class FavoritesController: UIViewController {
     //MARK: - Helpers
     
     func configureUI() {
-        view.backgroundColor = .fwDarkBlueBg
+        view.backgroundColor = .white
         navigationItem.title = "FAVORITES"
-
     }
     
     

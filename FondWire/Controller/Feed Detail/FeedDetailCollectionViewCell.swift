@@ -194,8 +194,8 @@ class FeedDetailCollectionViewCell: UICollectionViewCell {
         }
         
 
-         if let media = feedViewModel.media {
-             let youtubeID = media.youtubeID
+         if let link = feedViewModel.link {
+             let youtubeID = link.youtubeID
                 guard let youtbID = youtubeID else { return }
              loadYoutube(videoID: youtbID)
          } else {

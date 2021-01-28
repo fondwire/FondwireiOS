@@ -209,8 +209,8 @@ class TermsAgreementController: UIViewController {
         
         dismiss(animated: false) {
             self.delegate?.didAgreeToTerms()
-            let generator = UIImpactFeedbackGenerator(style: .rigid)
-            generator.impactOccurred()
+            Vibration.rigid.vibrate()
+
         }
         
     }

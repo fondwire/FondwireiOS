@@ -24,10 +24,21 @@ class AssetManagerController: UITableViewController {
     private var inSearchMode: Bool{
         return searchController.searchBar.text!.count > 0
     }
+    var result: [String: [String:[String]]]?
         
     //MARK: - Lifecycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+//        if let currentUser = DataService.shared.currentUser {
+//            result = UserDefaults.standard.value(forKey: currentUser.email) as! [String : [String : [String]]]
+//        } else {
+//            print(UserDefaults.standard.value(forKey: "notUser"))
+//            result = UserDefaults.standard.value(forKey: "notUser") as? [String : [String : [String]]]
+//            
+//            
+//            print(result!)
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -40,8 +51,8 @@ class AssetManagerController: UITableViewController {
         super .viewDidLoad()
         configureUI()
         configureSearchController()
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.success)
+        Vibration.success.vibrate()
+
     }
 
     //MARK: - Helpers

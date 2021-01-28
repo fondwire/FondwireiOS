@@ -15,7 +15,12 @@ class ArticleCell: UICollectionViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet weak var assetNameLabel: UILabel!
     @IBOutlet weak var timeStampLabel: UILabel!
-    @IBOutlet var archiveButton: UIButton!
+    @IBOutlet var archiveButton: UIButton! {
+        didSet {
+            archiveButton.setImage(UIImage(named: "bookmark"), for: .normal)
+            archiveButton.setImage(UIImage(named: "bookmark-highlighted"), for: .selected)
+        }
+    }
     var mediaURLString: String?
 
     private let lineView: UIView = {
@@ -67,17 +72,10 @@ class ArticleCell: UICollectionViewCell {
         }
     }
     @IBAction func archiveButtonTapped(_ sender: Any) {
+        archiveButton.isSelected = !archiveButton.isSelected
         UIView.animate(withDuration: 0.15) {
+            Vibration.medium.vibrate()
             self.archiveButton.transform = CGAffineTransform(scaleX: 2, y: 2)
-            if self.archiveButton.isSelected {
-                self.archiveButton.isSelected = true
-                self.archiveButton.tintColor = .lightGray
-            } else {
-                self.archiveButton.isSelected = false
-                self.archiveButton.tintColor = .systemYellow
-            }
-            self.archiveButton.isSelected = !self.archiveButton.isSelected
-            
         } completion: { (_) in
             self.archiveButton.transform = .identity
         }
