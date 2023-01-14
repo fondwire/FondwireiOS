@@ -63,6 +63,7 @@ class ArticleCell: UICollectionViewCell {
         timeStampLabel.text = feedViewModel.timeAndDate
         textView.textContainer.lineBreakMode = .byTruncatingTail
         textView.attributedText = feedViewModel.bodyTxt
+        textView.isScrollEnabled = false
         assetNameLabel.text = feedViewModel.assetName
        
         if let logoURL = feed.logo {

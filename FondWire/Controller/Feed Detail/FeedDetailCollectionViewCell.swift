@@ -182,8 +182,7 @@ class FeedDetailCollectionViewCell: UICollectionViewCell {
          timeStampLabel.text = feedViewModel.timeAndDate
         
      
-        feedTextView.setHTMLFromString(htmlText: feedViewModel.detailBodyText!)
-        
+        feedTextView.setHTMLFromString(htmlText: feedViewModel.detailBodyText?.string ?? "")
         
         assetNameLabel.text = feedViewModel.assetName
                

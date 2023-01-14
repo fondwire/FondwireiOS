@@ -9,8 +9,13 @@
 import UIKit
 import WebKit
 
+protocol FeedVideoCellDelegate: AnyObject {
+    func archiveTapped(archived: Bool)
+}
+
 class FeedVideoCell: UICollectionViewCell {
     
+    weak var delegate: FeedVideoCellDelegate?
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var assetNameLabel: UILabel!
@@ -73,7 +78,6 @@ class FeedVideoCell: UICollectionViewCell {
         textView.attributedText = feedViewModel.bodyTxt
         textViewHeight.constant = textView.contentSize.height
         textView.isScrollEnabled = false
-        
         assetNameLabel.text = feedViewModel.assetName
        
         if let logoURL = feed.logo {
@@ -102,7 +106,10 @@ class FeedVideoCell: UICollectionViewCell {
     
     @IBAction func archiveTappedd(_ button: UIButton) {
         
+        self.delegate?.archiveTapped(archived: !self.archiveButton.isSelected ? true : false)
+
         archiveButton.isSelected = !archiveButton.isSelected
+        
         UIView.animate(withDuration: 0.15) {
             Vibration.medium.vibrate()
             self.archiveButton.transform = CGAffineTransform(scaleX: 2, y: 2)
@@ -110,9 +117,7 @@ class FeedVideoCell: UICollectionViewCell {
             self.archiveButton.transform = .identity
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            //TO DO: implement Archive action
-        }
+
     }
 }
 

@@ -158,6 +158,7 @@ class ProfileController: UICollectionViewController {
                 }
             }
             user = nil
+            DataService.shared.currentUser = nil
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "userUpdatedFromProfile"), object: nil)
             handleComplete()
         } catch {

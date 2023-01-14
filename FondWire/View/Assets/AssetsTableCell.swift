@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol AssetsTableCellDelegate: class {
+    func followButtonTapped(withIndexPath indexPath: IndexPath, selected: Bool)
+}
+
 class AssetsTableCell: UITableViewCell {
     
+    var delegate: AssetsTableCellDelegate?
+    var indexPath: IndexPath?
     static let reuseID = "assetsCell"
 
     var asset: Asset? {
@@ -43,7 +49,7 @@ class AssetsTableCell: UITableViewCell {
         return lbl
     }()
     
-    private let followButton: UIButton = {
+    let followButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont.gothamMedium(ofSize: 10)
         button.setImage(UIImage(named: "unchecked"), for: .normal)
@@ -120,9 +126,12 @@ class AssetsTableCell: UITableViewCell {
         followButton.isSelected = !followButton.isSelected
         if followButton.isSelected {
             Vibration.light.vibrate()
+            guard let indexPath = indexPath else { return }
+            delegate?.followButtonTapped(withIndexPath: indexPath, selected: true)
         } else {
             Vibration.medium.vibrate()
+            guard let indexPath = indexPath else { return }
+            delegate?.followButtonTapped(withIndexPath: indexPath, selected: false)
         }
-
     }
 }

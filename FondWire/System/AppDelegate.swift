@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ProgressHUD.colorAnimation = .fwYellow
         fetchFeeds()
         fetchAssets()
+        fetchUser()
         setNavigationBarAppearance()
         return true
     }

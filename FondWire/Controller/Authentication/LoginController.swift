@@ -17,6 +17,7 @@ protocol LoginControllerDelegate: class {
 class LoginController: UIViewController {
     
     // MARK: - Properties
+    let appDelegate = AppDelegate()
     weak var delegate: LoginControllerDelegate?
     private var loginViewModel = LoginViewModel()
     private let iconImage = UIImageView(image: #imageLiteral(resourceName: "fondwireLogo"))
@@ -158,11 +159,11 @@ class LoginController: UIViewController {
             } else {
                 self.dismiss(animated: true) {
                     ProgressHUD.dismiss()
+                    self.appDelegate.fetchUser()
                     self.delegate?.loginCompleted()
                 }
             }
         }
-        
     }
     
     
