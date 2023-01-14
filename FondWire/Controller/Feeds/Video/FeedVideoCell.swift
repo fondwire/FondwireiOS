@@ -9,15 +9,26 @@
 import UIKit
 import WebKit
 
+protocol FeedVideoCellDelegate: AnyObject {
+    func archiveTapped(archived: Bool)
+}
+
 class FeedVideoCell: UICollectionViewCell {
     
+    weak var delegate: FeedVideoCellDelegate?
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var assetNameLabel: UILabel!
     @IBOutlet var timeStampLabel: UILabel!
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet var textView: UITextView!
-    @IBOutlet var archiveButton: UIButton!
+    @IBOutlet weak var textViewHeight: NSLayoutConstraint!
+    @IBOutlet var archiveButton: UIButton! {
+        didSet {
+            archiveButton.setImage(UIImage(named: "bookmark"), for: .normal)
+            archiveButton.setImage(UIImage(named: "bookmark-highlighted"), for: .selected)
+        }
+    }
     private var mergedStack: UIStackView!
     private var imageLabelStack: UIStackView!
     var mediaURLString: String?
@@ -36,6 +47,7 @@ class FeedVideoCell: UICollectionViewCell {
         }
     }
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -53,6 +65,7 @@ class FeedVideoCell: UICollectionViewCell {
         archiveButton.tintColor = .darkGray
         archiveButton.imageView?.contentMode = .scaleAspectFit
         archiveButton.imageEdgeInsets = UIEdgeInsets(top: 3, left: 10, bottom: 5, right: -3)
+
         profileImage.image = #imageLiteral(resourceName: "launchLogo")
     }
     
@@ -63,6 +76,8 @@ class FeedVideoCell: UICollectionViewCell {
         timeStampLabel.text = feedViewModel.timeAndDate
         textView.textContainer.lineBreakMode = .byTruncatingTail
         textView.attributedText = feedViewModel.bodyTxt
+        textViewHeight.constant = textView.contentSize.height
+        textView.isScrollEnabled = false
         assetNameLabel.text = feedViewModel.assetName
        
         if let logoURL = feed.logo {
@@ -71,9 +86,10 @@ class FeedVideoCell: UICollectionViewCell {
             profileImage.image = #imageLiteral(resourceName: "punica")
         }
         
-        guard let media = feedViewModel.media,
+        guard let media = feedViewModel.link,
               let youtbID = media.youtubeID
         else {
+
             // TO DO: ERROR LOADING A VIDEO LABEL IN WEBVIEW
             return
         }
@@ -89,25 +105,19 @@ class FeedVideoCell: UICollectionViewCell {
     }
     
     @IBAction func archiveTappedd(_ button: UIButton) {
-    
+        
+        self.delegate?.archiveTapped(archived: !self.archiveButton.isSelected ? true : false)
+
+        archiveButton.isSelected = !archiveButton.isSelected
+        
         UIView.animate(withDuration: 0.15) {
+            Vibration.medium.vibrate()
             self.archiveButton.transform = CGAffineTransform(scaleX: 2, y: 2)
-            if self.archiveButton.isSelected {
-                self.archiveButton.isSelected = true
-                self.archiveButton.tintColor = .lightGray
-            } else {
-                self.archiveButton.isSelected = false
-                self.archiveButton.tintColor = .systemYellow
-            }
-            self.archiveButton.isSelected = !self.archiveButton.isSelected
-            
         } completion: { (_) in
             self.archiveButton.transform = .identity
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            //TO DO: implement Archive action
-        }
+
     }
 }
 

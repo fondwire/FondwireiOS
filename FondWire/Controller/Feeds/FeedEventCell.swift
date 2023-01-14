@@ -47,6 +47,7 @@ class FeedEventCell: UICollectionViewCell {
     }
 
     @IBAction func dismissTapped(_ button: UIButton) {
+        Vibration.rigid.vibrate()
             UIView.animate(withDuration: 0.15) {
                 button.transform = CGAffineTransform(scaleX: 2, y: 2)
             } completion: { (_) in

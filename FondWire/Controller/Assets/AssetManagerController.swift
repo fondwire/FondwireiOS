@@ -12,8 +12,10 @@ import ProgressHUD
 import FirebaseAuth
 
 
+
 class AssetManagerController: UITableViewController {
     //MARK: - Properties
+    
     private var searchIsActive = false
     private var filterManagers = [Asset]() {
         didSet {
@@ -24,10 +26,27 @@ class AssetManagerController: UITableViewController {
     private var inSearchMode: Bool{
         return searchController.searchBar.text!.count > 0
     }
+    
+    var userPrefDict:[String: [String:[String]]]?
+    var listOfSelectedAssets:[String]?
         
     //MARK: - Lifecycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let result = UserDefaults.standard.dictionary(forKey: "userInfo") as? [String: [String:[String]]] {
+            userPrefDict = result
+            print("DEBUG: \(userPrefDict)")
+        }
+        
+
+        if let currentUser = DataService.shared.currentUser {
+            guard let userDict = userPrefDict else { return }
+            listOfSelectedAssets = userDict["\(currentUser.email)"]?["selectedAssets"]
+        } else  {
+            guard let userDict = userPrefDict else { return }
+            listOfSelectedAssets = userDict["notUser"]?["selectedAssets"]
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -40,8 +59,8 @@ class AssetManagerController: UITableViewController {
         super .viewDidLoad()
         configureUI()
         configureSearchController()
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.success)
+        Vibration.success.vibrate()
+
     }
 
     //MARK: - Helpers
@@ -95,6 +114,16 @@ extension AssetManagerController {
         let cell = tableView.dequeueReusableCell(withIdentifier: AssetsTableCell.reuseID, for: indexPath) as! AssetsTableCell
         let asset = inSearchMode ? filterManagers[indexPath.row] : DataService.shared.assets[indexPath.row]
         cell.asset = asset
+        cell.delegate = self
+        cell.indexPath = indexPath
+        
+        if let selectedAssets = listOfSelectedAssets {
+            for selectedAsset in selectedAssets {
+                if selectedAsset.lowercased() == asset.name.lowercased() {
+                    cell.followButton.isSelected = true
+                }
+            }
+        }
         return cell
     }
     
@@ -123,5 +152,32 @@ extension AssetManagerController : UISearchResultsUpdating, UISearchBarDelegate 
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         handleSearchTapped()
+    }
+}
+
+extension AssetManagerController: AssetsTableCellDelegate {
+    func followButtonTapped(withIndexPath indexPath: IndexPath, selected: Bool) {
+    
+        if var selectedAssets = listOfSelectedAssets
+        {
+        if !selectedAssets.contains(DataService.shared.assets[indexPath.row].name) {
+            selectedAssets.append(DataService.shared.assets[indexPath.row].name)
+        } else {
+            guard let index = selectedAssets.firstIndex(of: DataService.shared.assets[indexPath.row].name) else { return }
+            selectedAssets.remove(at: index)
+        }
+        
+        
+        let userPreferences = ["selectedAssets": selectedAssets]
+       
+        if let currentUser = DataService.shared.currentUser {
+            let userInfo = ["\(currentUser.email)": userPreferences]
+            UserDefaults.standard.set(userInfo, forKey: "userInfo")
+        } else {
+            let userInfo = ["notUser": userPreferences]
+            UserDefaults.standard.set(userInfo, forKey: "userInfo")
+        }
+        }
+
     }
 }

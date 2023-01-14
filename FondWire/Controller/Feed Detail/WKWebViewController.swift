@@ -10,14 +10,22 @@ import Foundation
 import UIKit
 import WebKit
 
-class WKWebViewContoller: UIViewController, WKNavigationDelegate {
+class FWWebViewContoller: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
-    var url: String! = nil
+    var url: String?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        webView.load(URLRequest(url: URL(string: url)!))
+        
+        guard var urlString = url else { return }
+        if !urlString.starts(with: "http://") {
+            urlString = "http://" + urlString
+        }
+        guard let url = URL(string: urlString)
+        else { return incorrectUrlProvided() }
+
+        webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
         tabBarController?.tabBar.isHidden = true
     }
@@ -34,6 +42,10 @@ class WKWebViewContoller: UIViewController, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
 //        hud.show(in: webView, animated: true)
+    }
+    
+    func incorrectUrlProvided() {
+        FWAlert.present(withTitle: "Failed to Load", andMessage: "The URL is broken, or you have data connection issues. Try Again Later!", buttons: [.ok])
     }
     
 }

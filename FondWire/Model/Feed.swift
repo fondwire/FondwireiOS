@@ -5,8 +5,6 @@
 //  Created by Edil Ashimov on 7/25/20.
 //  Copyright © 2020 Edil Ashimov. All rights reserved.
 //
-
-import Foundation
 import UIKit
 
 enum FeedType: String {
@@ -29,14 +27,17 @@ struct Feed {
     var category: String?
     var uid: String
     var type: FeedType
-    var attrBody: NSAttributedString?
-    var attrTeaser: NSAttributedString?
+    var attrBody: NSMutableAttributedString?
+    var attrTeaser: NSMutableAttributedString?
     var user: User
     let isAssetManagerApproved: Bool
     let isAdminApproved: Bool
+    let link: String?
+    let views: Int?
+    let archives: Int?
+
     
     init(user: User, dict: [String: Any]) {
-        
         self.uid = user.uid
         self.title = dict["title"] as? String ?? ""
         self.media = dict["media"] as? String ?? ""
@@ -53,13 +54,13 @@ struct Feed {
         self.bodyText = dict["bodyText"] as? String
         self.isAdminApproved = dict["isAdminApproved"] as? Bool ?? false
         self.isAssetManagerApproved = dict["isAssetManagerApproved"] as? Bool ?? false
-
-
+        self.link = dict["link"] as? String
+        self.views = dict["views"] as? Int
+        self.archives = dict["archives"] as? Int
         
-        
-
         if let timeStamp = dict["issueDate"] as? Double {
             self.issueDate = Date(timeIntervalSince1970: timeStamp)
         }
     }
+    
 }

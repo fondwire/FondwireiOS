@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ProgressHUD.colorAnimation = .fwYellow
         fetchFeeds()
         fetchAssets()
+        fetchUser()
         setNavigationBarAppearance()
         return true
     }
@@ -58,6 +59,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setNavigationBarAppearance() {
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().tintColor = .black 
+    }
+    
+    func fetchUser() {
+        if Auth.auth().currentUser != nil {
+            UserService.shared.fetchUser(uid: Auth.auth().currentUser!.uid) { (user) in
+                DataService.shared.currentUser = user
+            }
+        }
     }
 }
 

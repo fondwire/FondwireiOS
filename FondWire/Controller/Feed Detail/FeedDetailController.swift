@@ -61,12 +61,12 @@ extension FeedDetailController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let viewModel = FeedViewModel(feed: feed)
-        var height = viewModel.sizeForDetail(forWidth: view.frame.width).height
+        var height = viewModel.sizeForDetail(forWidth: view.frame.width, for: viewModel.detailBodyText?.string ?? "").height
         switch feed.type {
-            case .article: height -= view.frame.height/2
-            case .video: height += 250
+            case .article: height += 270
+            case .video: height += 270
             case .podcast: print("")
-            case .event: height += 100
+            case .event: height += 70
             }
         return CGSize(width: view.frame.width * 0.95, height: height)
 

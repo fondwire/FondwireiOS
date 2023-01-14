@@ -41,7 +41,7 @@ struct AssetService {
                 let managers = dict["managers"]
                 var asset: Asset!
                 if let contact = dict["contact"] {
-                    asset = Asset(name: key, type: dict["type"] as! String, teaser: dict["teaser"] as? String, managers: managers as? [String : Any], profileImageURL: dict["profileImageURL"] as? String, contactPerson: ContactPerson(dictionary: contact as! [String : AnyObject]))
+                    asset = Asset(name: key, type: dict["type"] as? String ?? "", teaser: dict["teaser"] as? String, managers: managers as? [String : Any], profileImageURL: dict["profileImageURL"] as? String, contactPerson: ContactPerson(dictionary: contact as! [String : AnyObject]))
                 } else {
                     asset = Asset(name: key, type: dict["type"] as! String, teaser: dict["teaser"] as? String, managers: managers as? [String : Any], profileImageURL: dict["profileImageURL"] as? String)
                 }

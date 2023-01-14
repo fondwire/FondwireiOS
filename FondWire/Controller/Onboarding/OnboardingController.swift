@@ -53,8 +53,8 @@ class OnboardingController: UIViewController {
         let alpha: CGFloat = shouldShow ? 1 : 0
         UIView.animate(withDuration: 0.5) {
             self.getStartedButton.alpha = alpha
-            let generator = UIImpactFeedbackGenerator(style: .light)
-            generator.impactOccurred()
+            Vibration.light.vibrate()
+
             
         }
     }
@@ -97,8 +97,8 @@ class OnboardingController: UIViewController {
         controller.modalTransitionStyle = .crossDissolve
         controller.delegate = self
         present(controller, animated: true, completion:nil)
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
+        Vibration.medium.vibrate()
+
         
 
     }

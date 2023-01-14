@@ -57,6 +57,7 @@ extension FeedsDataSource {
         case .video:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedVideoView", for: indexPath) as! FeedVideoCell
             cell.feed = feed
+            cell.delegate = self
             return addShadowToCell(cell)
 
         case .podcast:
@@ -92,10 +93,6 @@ private func addShadowToCell(_ cell: UICollectionViewCell) -> UICollectionViewCe
     return cell
 }
 
-
-
-
-
 extension FeedsDataSource: EventCellDelegate {
     func dismissTapped(for cell: FeedEventCell) {
         collectionView.performBatchUpdates {
@@ -103,4 +100,11 @@ extension FeedsDataSource: EventCellDelegate {
             self.collectionView.reloadData()
         }
     }
+}
+
+extension FeedsDataSource: FeedVideoCellDelegate {
+    func archiveTapped(archived: Bool) {
+        print("\(archived)")
+    }
+
 }

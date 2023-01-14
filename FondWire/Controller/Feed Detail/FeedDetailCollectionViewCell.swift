@@ -182,8 +182,7 @@ class FeedDetailCollectionViewCell: UICollectionViewCell {
          timeStampLabel.text = feedViewModel.timeAndDate
         
      
-        feedTextView.setHTMLFromString(htmlText: feedViewModel.detailBodyText!)
-        
+        feedTextView.setHTMLFromString(htmlText: feedViewModel.detailBodyText?.string ?? "")
         
         assetNameLabel.text = feedViewModel.assetName
                
@@ -194,8 +193,8 @@ class FeedDetailCollectionViewCell: UICollectionViewCell {
         }
         
 
-         if let media = feedViewModel.media {
-             let youtubeID = media.youtubeID
+         if let link = feedViewModel.link {
+             let youtubeID = link.youtubeID
                 guard let youtbID = youtubeID else { return }
              loadYoutube(videoID: youtbID)
          } else {

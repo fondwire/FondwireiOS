@@ -48,8 +48,7 @@ class MainTabBarController: UITabBarController {
     }
 
     func startVibration() {
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.error)
+        Vibration.error.vibrate()
     }
     
     
@@ -86,13 +85,13 @@ class MainTabBarController: UITabBarController {
         let feedNav = embedInNav(image: #imageLiteral(resourceName: "feedicon"), viewController: feedController)
         
         
-//        let favoriteNav = embedInNav(image: #imageLiteral(resourceName: "favoriteicon"), viewController: FavoritesController())
+        let favoriteNav = embedInNav(image: #imageLiteral(resourceName: "favoriteIcon"), viewController: FavoritesController())
         
         let assetNav = embedInNav(image: #imageLiteral(resourceName: "assetmanagericon"), viewController: AssetManagerController())
         let messagesNav = embedInNav(image: #imageLiteral(resourceName: "messagesicon"), viewController: MessagesController())
 
         let profileNav = embedInNav(image: #imageLiteral(resourceName: "profileicon"), viewController: ProfileController(collectionViewLayout: UICollectionViewFlowLayout()))
-        viewControllers = [feedNav, assetNav, messagesNav, profileNav]
+        viewControllers = [feedNav, favoriteNav, assetNav, messagesNav, profileNav]
     }
     
     func embedInNav(image: UIImage?, viewController: UIViewController) -> UINavigationController {
@@ -110,8 +109,8 @@ class MainTabBarController: UITabBarController {
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        generator.impactOccurred()
+        Vibration.light.vibrate()
+
     }
     
     

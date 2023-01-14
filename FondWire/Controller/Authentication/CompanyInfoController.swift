@@ -71,18 +71,12 @@ class CompanyInfoController: UIViewController {
     var typeValues = ["Type 1", "Type 2", "Type 3", "Type 4"]
     let cellReuseIdentifier = "dropDownCell"
     
-    var user: User?
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         configureNotificationObservers()
-        
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        UserService.shared.fetchUser(uid: uid) { (user) in
-            self.user = user
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -172,7 +166,7 @@ class CompanyInfoController: UIViewController {
             
             values["companyName"] = companyName as AnyObject
             
-            guard var user = user else { return }
+        guard var user = DataService.shared.currentUser else { return }
             self.values = ["fullname": user.fullname,
                            "email": user.email,
                            "profileImage": user.profileImageUrl as Any,
@@ -191,7 +185,7 @@ class CompanyInfoController: UIViewController {
                             if asset.name == companyName {
                                 //  Getting a list of existing managers and adding a new one
                                 var managersDict = asset.managers?["managers"] as! [String: Any]
-                                managersDict.merge(dict: [self.user!.fullname: currentUserUid])
+                                managersDict.merge(dict: [DataService.shared.currentUser!.fullname: currentUserUid])
                                 //Adding a new manager to an existing company
                                 AssetService.shared.addNewManager(companyName: companyName, managers: managersDict) { (error, ref) in
                                     
@@ -207,7 +201,7 @@ class CompanyInfoController: UIViewController {
                         }
                         if !companyExists {
                             // Assuming that the the company doesn't exist we are creating a new asset and adding a new manager
-                            AssetService.shared.createNewAsset(companyName: companyName, managerUid: self.user!.uid, managerName: self.user!.fullname, companyType: companyType) { (error, ref) in
+                            AssetService.shared.createNewAsset(companyName: companyName, managerUid: DataService.shared.currentUser!.uid, managerName: DataService.shared.currentUser!.fullname, companyType: companyType) { (error, ref) in
                                 self.dismiss(animated: true) {
                                     self.delegate?.companyDidSpecified()
                                 }

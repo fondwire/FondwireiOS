@@ -17,7 +17,6 @@ class FeedController: UICollectionViewController {
     
     //MARK: - Properties    
     var webView = WKWebView()
-    var user: User?
     var dataSource: FeedsDataSource?
     
     private let filterBarButton: UIButton = {
@@ -38,23 +37,12 @@ class FeedController: UICollectionViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateCollectionView), name: NSNotification.Name(rawValue: "feedsFetched"), object: nil)
         presentOnboardingController()
     }
-
+    
     override func viewDidLoad() {
         super .viewDidLoad()
         configureUI()
-        fetchUser()
         updateCollectionView()
     }
-    
-     //MARK: - API
-    func fetchUser() {
-        if Auth.auth().currentUser != nil {
-            UserService.shared.fetchUser(uid: Auth.auth().currentUser!.uid) { (user) in
-                self.user = user
-            }
-        }
-    }
-    
     @objc func updateCollectionView()  {
         guard let feeds = DataService.shared.feeds else { return }
         dataSource = FeedsDataSource(collectionView: collectionView)
@@ -64,7 +52,7 @@ class FeedController: UICollectionViewController {
     //MARK: - Helpers
     func configureUI() {
         let barButton = UIBarButtonItem(customView: filterBarButton)
-         navigationItem.rightBarButtonItem = barButton
+        navigationItem.rightBarButtonItem = barButton
         let feedVideoNib = UINib.init(nibName: "FeedVideoView", bundle: nil)
         collectionView.register(feedVideoNib, forCellWithReuseIdentifier: "FeedVideoView")
         
@@ -88,6 +76,17 @@ class FeedController: UICollectionViewController {
             controller.delegate = self
             present(controller, animated: true)
             defaults.set(true, forKey: "onboardingPresented")
+            
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                
+            }
+            
+            let defaultAssets = ["Fondwire", "Codex"]
+            let userPreferences = ["selectedAssets": defaultAssets]
+            let userInfo = ["notUser": userPreferences]
+            UserDefaults.standard.set(userInfo, forKey: "userInfo")
         } 
     }
     
@@ -105,22 +104,13 @@ class FeedController: UICollectionViewController {
         present(nav, animated: true)
     }
     
-    func presentCompanyInfoController() {
-        let controller = CompanyInfoController()
-        controller.delegate = self
-        controller.user =  user
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
-    }
-    
     func presentFeedDetailController(withFeed feed: Feed) {
         let detailController = FeedDetailController(feed: feed)
         navigationController?.pushViewController(detailController, animated: true)
     }
     
     func presentWebController(withUrl url: String)  {
-        let webViewController = WKWebViewContoller()
+        let webViewController = FWWebViewContoller()
         webViewController.url = url
         navigationController?.pushViewController(webViewController, animated: true)
     }
@@ -128,7 +118,7 @@ class FeedController: UICollectionViewController {
     func registerFeedTapped() {
         
     }
-
+    
 }
 
 extension FeedController: WelcomeControllerDelegate {
@@ -150,55 +140,43 @@ extension FeedController: WelcomeControllerDelegate {
 extension FeedController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
-        if Auth.auth().currentUser == nil {
-            presentLoginController()
+        
+        guard Auth.auth().currentUser != nil else { return presentLoginController() }
+        guard let feeds = DataService.shared.feeds else { return }
+        
+        let feed = feeds[indexPath.row]
+        
+        if feed.type == .event {
+            guard let url = feed.url else { return }
+            presentWebController(withUrl: url)
         } else {
-                guard let feeds = DataService.shared.feeds else { return }
-                let feed = feeds[indexPath.row]
-                if feed.type == .event {
-                    guard let url = feed.url else { return }
-                    presentWebController(withUrl: url)
-                } else {
-                    presentFeedDetailController(withFeed: feed)
-                }
+            presentFeedDetailController(withFeed: feed)
         }
     }
+    
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
 extension FeedController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let feeds = DataService.shared.feeds else { return CGSize(width: 0, height: 0) }
+        guard let feeds = DataService.shared.feeds else { return CGSize.zero}
         
         let viewModel = FeedViewModel(feed: feeds[indexPath.row])
         
         let feed = feeds[indexPath.row]
-        var height = viewModel.size(forWidth: view.frame.width).height
-        var width = view.frame.width
+        let textFrame = viewModel.size(forWidth: collectionView.frame.width, withbodyText: feed.attrBody ?? feed.attrTeaser ?? NSMutableAttributedString(), andTitle: feed.title, forFeedType: feed.type)
         
-        switch feed.type {
-        case .article: height += 240
-        case .video: height += 290
-        case .podcast: print("")
-        case .event: height += 170
-        }
-        if feed.type == .event {
-            width *= 0.95
-        }
-        return CGSize(width: width, height: height)
+        return CGSize(width: collectionView.frame.width, height: textFrame.height)
     }
 }
 
 extension FeedController: CompanyInfoControllerDelegate {
     func companyDidSpecified() {
-        fetchUser()
     }
 }
 
 extension FeedController: LoginControllerDelegate {
     func loginCompleted() {
         collectionView(collectionView, didSelectItemAt: selectedIndexPath)
-        fetchUser()
     }
 }
-

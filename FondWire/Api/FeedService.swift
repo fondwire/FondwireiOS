@@ -100,7 +100,7 @@ struct FeedService {
         return nil
     }
     
-    func getTextFromHTML(text: String) -> NSAttributedString {
+    func getTextFromHTML(text: String) -> NSMutableAttributedString {
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 5
         style.alignment = .left
