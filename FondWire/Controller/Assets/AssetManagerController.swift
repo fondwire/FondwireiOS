@@ -84,7 +84,7 @@ class AssetManagerController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(handleSearchTapped))
-        navigationItem.rightBarButtonItem?.tintColor = .fwYellow
+        navigationItem.rightBarButtonItem?.tintColor = .darkGray
         navigationItem.leftBarButtonItem?.tintColor = .lightText
         self.searchController.searchBar.isHidden = true
     }

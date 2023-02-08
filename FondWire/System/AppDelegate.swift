@@ -14,8 +14,6 @@ import ProgressHUD
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         ProgressHUD.animationType = .circleRotateChase
@@ -50,10 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func fetchFeeds()  {
-        FeedService.shared.fetchFeed { (feed) in
+        FeedService.shared.fetchFeed { (feed, favoritedFeeds) in
             DataService.shared.feeds = feed
+            DataService.shared.favoritedFeeds = favoritedFeeds
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "feedsFetched"), object: nil)
         }
+        
+
     }
     
     func setNavigationBarAppearance() {

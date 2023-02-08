@@ -11,7 +11,6 @@ import UIKit
 import FirebaseAuth
 import SwiftyGif
 
-
 class MainTabBarController: UITabBarController {
     
     //MARK: - Properties
@@ -19,9 +18,7 @@ class MainTabBarController: UITabBarController {
     var user: User?
     let logoAnimationView = LogoAnimationView()
 
-    
     //MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(logoAnimationView)
@@ -51,7 +48,6 @@ class MainTabBarController: UITabBarController {
         Vibration.error.vibrate()
     }
     
-    
     //MARK: - Helpers
     func authenticateUserAndConfUI() {
         configureViewControllers()
@@ -69,23 +65,26 @@ class MainTabBarController: UITabBarController {
     }
 
     func configureUI() {
-        navigationController?.navigationBar.barStyle = .default
         view.backgroundColor = .white
-        tabBar.barTintColor = .white
-        tabBar.tintColor = .fwDarkBlueBg
-        tabBar.barStyle = .default
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        tabBar.tintColor = .fwCyan
+        
+        tabBar.scrollEdgeAppearance = appearance
+        tabBar.standardAppearance = appearance
     }
 
-    
     func configureViewControllers() {
-        
         var mainView: UIStoryboard!
         mainView = UIStoryboard(name: "FeedController", bundle: nil)
         let feedController : UIViewController = mainView.instantiateViewController(withIdentifier: "FeedController") as! FeedController
         let feedNav = embedInNav(image: #imageLiteral(resourceName: "feedicon"), viewController: feedController)
         
         
-        let favoriteNav = embedInNav(image: #imageLiteral(resourceName: "favoriteIcon"), viewController: FavoritesController())
+        mainView = UIStoryboard(name: "FavoritesController", bundle: nil)
+        let favoritesController : UIViewController = mainView.instantiateViewController(withIdentifier: "FavoritesController") as! FavoritesController
+        let favoriteNav = embedInNav(image: UIImage(named: "favoriteIcon"), viewController: favoritesController)
         
         let assetNav = embedInNav(image: #imageLiteral(resourceName: "assetmanagericon"), viewController: AssetManagerController())
         let messagesNav = embedInNav(image: #imageLiteral(resourceName: "messagesicon"), viewController: MessagesController())
@@ -95,24 +94,29 @@ class MainTabBarController: UITabBarController {
     }
     
     func embedInNav(image: UIImage?, viewController: UIViewController) -> UINavigationController {
-        
         let nav = UINavigationController(rootViewController: viewController)
         nav.tabBarItem.image = image
-        nav.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.gothamBold(ofSize: 16)]
         setNavigationBarAppearance()
         return nav
     }
     
     func setNavigationBarAppearance() {
-        UINavigationBar.appearance().barTintColor = .black
-        UINavigationBar.appearance().tintColor = .white
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.tintColor = UIColor.black
+
+        appearance.backgroundColor = .white
+        appearance.titleTextAttributes = [NSAttributedString.Key.font : UIFont.gothamBold(ofSize: 16),  NSAttributedString.Key.foregroundColor : UIColor.black]
+        
+        appearance.shadowColor = .clear
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         Vibration.light.vibrate()
-
     }
-    
     
     //MARK: - Selectors
 

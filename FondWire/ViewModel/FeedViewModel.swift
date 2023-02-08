@@ -33,7 +33,7 @@ struct FeedViewModel {
     }
     
     var assetName: String {
-        guard let name = feed.name else { return ""}
+        guard let name = feed.name else { return "This is the title placeholder" }
         return name.uppercased()
     }
     
@@ -77,28 +77,16 @@ struct FeedViewModel {
         
         switch feedType {
         case .article:
-            estimatedTitleTextFrame = NSString(string: title).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-            estimatedBodyTextFrame = NSString(string: bodyText.string).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-            additionalElementsHeights = Device.isPhone ? 0 : 100
-
+            ()
         case .video:
-            estimatedTitleTextFrame = NSString(string: title).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-            estimatedBodyTextFrame = NSString(string: bodyText.string).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-            if let bodyHeight = estimatedBodyTextFrame?.height {
-                if bodyHeight >= 80 {
-                    estimatedBodyTextFrame = CGRect(x: 0, y: 0, width: 0, height: 65)
-                }
-            }
-            additionalElementsHeights = Device.isPhone ? 240 : 350
-       
+            ()
         case .podcast:
-            additionalElementsHeights = Device.isPhone ? 220 : 400
-        
+            ()
         case .event:
-            additionalElementsHeights = Device.isPhone ? 200 : 150
+            additionalElementsHeights = Device.isPhone ? 250 : 150
         }
         
-        return CGSize(width: width, height: (estimatedTitleTextFrame?.height ?? 0) + (estimatedBodyTextFrame?.height ?? 0) + additionalElementsHeights)
+        return CGSize(width: width, height: additionalElementsHeights)
             
     }
     

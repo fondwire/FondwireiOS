@@ -244,11 +244,13 @@ extension String {
 extension UITextView {
     func setHTMLFromString(htmlText: String) {
         let modifiedFont = String(format:"<span style=\"font-family: Avenir; color: #005CB9; font-size: \(self.font!.pointSize)\">%@</span>", htmlText)
-        let attrStr = try! NSAttributedString(
+        let attrStr = try! NSMutableAttributedString(
             data: modifiedFont.data(using: .unicode, allowLossyConversion: true)!,
             options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue],
             documentAttributes: nil)
         
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkGray ]
+        attrStr.addAttributes(attributes, range:  NSRange(location: 0, length: attrStr.length))
         self.attributedText = attrStr
     }
     
@@ -322,6 +324,16 @@ extension UIApplication {
         
         return controller
     }
+}
+
+extension UIImageView {
+  public func cirle() {
+      self.layer.cornerRadius = self.frame.size.width/2
+      self.clipsToBounds = true
+      self.layer.borderWidth = 2.0
+      self.layer.borderColor = UIColor.fwCyan.cgColor
+  }
+    
 }
 
 

@@ -105,6 +105,7 @@ class AssetsTableCell: UITableViewCell {
         let additionalSeparator = UIView.init(frame: CGRect(x: 0, y: frame.size.height-separatorHeight, width:frame.size.width, height: separatorHeight))
         additionalSeparator.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         self.addSubview(additionalSeparator)
+//        assetProfileImgVw.cirle()
     }
     
     
@@ -117,8 +118,10 @@ class AssetsTableCell: UITableViewCell {
             guard let url = URL(string: profileImageString) else { return }
             assetProfileImgVw.sd_setImage(with: url)
         } else {
-            assetProfileImgVw.image = #imageLiteral(resourceName: "icon6.png")
+            assetProfileImgVw.image = #imageLiteral(resourceName: "manage")
         }
+        
+        assetProfileImgVw.contentMode = .scaleAspectFit
      }
     
     

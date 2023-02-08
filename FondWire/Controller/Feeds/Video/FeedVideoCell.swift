@@ -78,10 +78,10 @@ class FeedVideoCell: UICollectionViewCell {
         textView.attributedText = feedViewModel.bodyTxt
         textViewHeight.constant = textView.contentSize.height
         textView.isScrollEnabled = false
-        assetNameLabel.text = feedViewModel.assetName
+        assetNameLabel.text = feedViewModel.assetName.uppercased()
        
         if let logoURL = feed.logo {
-            profileImage.sd_setImage(with: logoURL)
+//            profileImage.sd_setImage(with: logoURL)
         } else {
             profileImage.image = #imageLiteral(resourceName: "punica")
         }

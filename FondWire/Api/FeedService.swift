@@ -41,15 +41,11 @@ struct FeedService {
             values["eventDate"] = ""
         }
     }
-    
-    func fetchFeeds(completion: @escaping([Feed]) -> Void) {
-        var feeds = [Feed]()
 
-
-    }
-    
-    func fetchFeed( completion: @escaping([Feed]) -> Void) {
+    func fetchFeed( completion: @escaping([Feed], [Feed]) -> Void) {
         var feeds = [Feed]()
+        var favoritedFeeds = [Feed]()
+
         
         REF_FEEDS.observeSingleEvent(of: .value) { (snapshot) in
             guard let snap = snapshot.value as? [String: Any] else { return }
@@ -78,8 +74,12 @@ struct FeedService {
                             }
                             if feed.isAdminApproved && feed.isAssetManagerApproved {
                                 feeds.append(feed)
+                                if feed.type != .event {
+                                    favoritedFeeds.append(feed)
+                                }
+                                
                             }
-                            completion(feeds)
+                            completion(feeds, favoritedFeeds)
                         }
                     }
                 }
@@ -89,7 +89,6 @@ struct FeedService {
     
     func getAssetIconURLString(assetName name: String) -> String? {
             
-    
         for asset in DataService.shared.assets {
             if asset.name.lowercased() == name.lowercased() {
                 if let url = asset.profileImageURL {

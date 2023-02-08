@@ -10,10 +10,10 @@ import UIKit
 
 class ArticleCell: UICollectionViewCell {
     
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var profileImageViewContainer: UIView!
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var textView: UITextView!
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet weak var assetNameLabel: UILabel!
     @IBOutlet weak var timeStampLabel: UILabel!
     @IBOutlet var archiveButton: UIButton! {
         didSet {
@@ -53,7 +53,10 @@ class ArticleCell: UICollectionViewCell {
         archiveButton.tintColor = .darkGray
         archiveButton.imageView?.contentMode = .scaleAspectFit
         archiveButton.imageEdgeInsets = UIEdgeInsets(top: 3, left: 10, bottom: 5, right: -3)
-        profileImage.image = #imageLiteral(resourceName: "launchLogo")
+//        profileImage.image = #imageLiteral(resourceName: "launchLogo")
+        profileImageViewContainer.layer.cornerRadius = 100
+        profileImageViewContainer.layer.masksToBounds = true
+        playButton.isHidden = true
     }
     
     func configure()  {
@@ -61,10 +64,10 @@ class ArticleCell: UICollectionViewCell {
         let feedViewModel = FeedViewModel(feed: feed)
         titleLabel.text = feedViewModel.title
         timeStampLabel.text = feedViewModel.timeAndDate
-        textView.textContainer.lineBreakMode = .byTruncatingTail
-        textView.attributedText = feedViewModel.bodyTxt
-        textView.isScrollEnabled = false
-        assetNameLabel.text = feedViewModel.assetName
+//        textView.textContainer.lineBreakMode = .byTruncatingTail
+//        textView.attributedText = feedViewModel.bodyTxt
+//        textView.isScrollEnabled = false
+//        assetNameLabel.text = feedViewModel.assetName.uppercased()
        
         if let logoURL = feed.logo {
             profileImage.sd_setImage(with: logoURL)

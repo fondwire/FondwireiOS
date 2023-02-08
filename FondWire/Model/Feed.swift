@@ -40,10 +40,10 @@ struct Feed {
     init(user: User, dict: [String: Any]) {
         self.uid = user.uid
         self.title = dict["title"] as? String ?? ""
-        self.media = dict["media"] as? String ?? ""
+        self.media = dict["file"] as? String ?? ""
         self.issueDate = dict["issueDate"] as? Date
         self.eventDate = dict["eventDate"] as? Date
-        self.name = dict["name"] as?  String
+        self.name = dict["companyName"] as?  String
         self.logo = dict["logo"] as? URL
         self.teaser = dict["teaser"] as? String
         self.url = dict["url"] as? String ?? ""

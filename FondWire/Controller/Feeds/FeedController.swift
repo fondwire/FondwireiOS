@@ -23,7 +23,7 @@ class FeedController: UICollectionViewController {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
         button.addTarget(self, action: #selector(handleFilterTapped), for: .touchUpInside)
-        button.tintColor = .fwYellow
+        button.tintColor = .darkGray
         return button
     }()
     
@@ -36,7 +36,7 @@ class FeedController: UICollectionViewController {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "userUpdatedFromFeed"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCollectionView), name: NSNotification.Name(rawValue: "feedsFetched"), object: nil)
         presentOnboardingController()
-    }
+    } 
     
     override func viewDidLoad() {
         super .viewDidLoad()
@@ -63,9 +63,8 @@ class FeedController: UICollectionViewController {
         collectionView.register(feedArticleNib, forCellWithReuseIdentifier: "ArticleView")
         
         setNeedsStatusBarAppearanceUpdate()
-        collectionView.backgroundColor = .fwFeedBackground
         navigationItem.title = "ALL FEEDS"
-        collectionView.showsVerticalScrollIndicator = true
+        collectionView.showsVerticalScrollIndicator = false
     }
     
     func presentOnboardingController()  {
@@ -155,18 +154,25 @@ extension FeedController {
     }
     
 }
-
-// MARK: UICollectionViewDelegateFlowLayout
+//
+//// MARK: UICollectionViewDelegateFlowLayout
 extension FeedController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+
         guard let feeds = DataService.shared.feeds else { return CGSize.zero}
-        
+
         let viewModel = FeedViewModel(feed: feeds[indexPath.row])
-        
+
         let feed = feeds[indexPath.row]
-        let textFrame = viewModel.size(forWidth: collectionView.frame.width, withbodyText: feed.attrBody ?? feed.attrTeaser ?? NSMutableAttributedString(), andTitle: feed.title, forFeedType: feed.type)
-        
-        return CGSize(width: collectionView.frame.width, height: textFrame.height)
+        switch feed.type {
+        case .event:
+            let textFrame = viewModel.size(forWidth: collectionView.frame.width, withbodyText: feed.attrBody ?? feed.attrTeaser ?? NSMutableAttributedString(), andTitle: feed.title, forFeedType: feed.type)
+            return CGSize(width: collectionView.frame.width, height: textFrame.height)
+        default:
+            ()
+        }
+        return CGSize(width: view.frame.width, height: 150)
     }
 }
 

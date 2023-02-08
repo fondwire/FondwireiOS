@@ -29,7 +29,7 @@ class FeedDetailController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.compactAppearance?.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10)]
    
     }

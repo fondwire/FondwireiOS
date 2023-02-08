@@ -15,7 +15,7 @@
  */
 #import <Foundation/Foundation.h>
 
-#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
+#import "FirebaseCore/Extension/FirebaseCoreInternal.h"
 #import "FirebaseDatabase/Sources/Api/FIRDatabaseConfig.h"
 #import "FirebaseDatabase/Sources/Constants/FConstants.h"
 #import "FirebaseDatabase/Sources/Core/FCompoundHash.h"
@@ -1302,7 +1302,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef ref,
 }
 
 - (void)sendAppCheckToken:(NSString *)token {
-    NSDictionary *requestData = @{kFWPRequestAppCheckToken : self.authToken};
+    NSDictionary *requestData = @{kFWPRequestAppCheckToken : token};
     [self sendAction:kFWPRequestActionAppCheck
                 body:requestData
            sensitive:YES
