@@ -9,25 +9,29 @@
 import Foundation
 import UIKit
 import WebKit
+import ProgressHUD
 
 class FWWebViewContoller: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     var url: String?
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         guard var urlString = url else { return }
-        if !urlString.starts(with: "http://") {
-            urlString = "http://" + urlString
-        }
         guard let url = URL(string: urlString)
         else { return incorrectUrlProvided() }
 
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
         tabBarController?.tabBar.isHidden = true
+        ProgressHUD.show()
+
     }
     
     override func loadView() {
@@ -37,11 +41,22 @@ class FWWebViewContoller: UIViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        hud.dismiss()
+        ProgressHUD.dismiss()
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        ProgressHUD.dismiss()
+    }
+    
+    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-//        hud.show(in: webView, animated: true)
+        ProgressHUD.show()
+    }
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        ProgressHUD.dismiss()
     }
     
     func incorrectUrlProvided() {

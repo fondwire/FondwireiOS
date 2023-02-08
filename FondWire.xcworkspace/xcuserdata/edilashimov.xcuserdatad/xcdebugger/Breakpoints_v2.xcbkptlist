@@ -7,96 +7,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3A169DB4-FBED-4405-8D94-7D0E0869E950"
-            shouldBeEnabled = "No"
+            uuid = "290709C2-EFF9-498B-ACA8-19BA81DFAB24"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FondWire/Controller/Feeds/FeedEventCell.swift"
+            filePath = "FondWire/Controller/Feed Detail/WKWebViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "configure()"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "FWWebViewContoller"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8CFD1AE3-FA37-483F-85DE-37A523DF41D2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FondWire/Controller/Feed Detail/WKWebViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "webView(_:didFail:withError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "53ACBCA3-FCDD-4B3D-B2FA-6A6F2FEAD6F4"
+            uuid = "CA1B8C3B-C3D3-433C-848E-77CD31B311F3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FondWire/Controller/Feeds/FeedEventCell.swift"
+            filePath = "FondWire/Controller/Feed Detail/WKWebViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "configure()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "53ACBCA3-FCDD-4B3D-B2FA-6A6F2FEAD6F4 - 2799a6462712660"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FondWire.FeedEventCell.configure() -&gt; ()"
-                  moduleName = "FondWire"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/edilashimov/Desktop/WorkSpace/FondWire/Fondwire%20iOS/FondWire/Controller/Feeds/FeedEventCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "1884">
-               </Location>
-               <Location
-                  uuid = "53ACBCA3-FCDD-4B3D-B2FA-6A6F2FEAD6F4 - 2799a6462712660"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FondWire.FeedEventCell.configure() -&gt; ()"
-                  moduleName = "FondWire"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/edilashimov/Desktop/WorkSpace/FondWire/Fondwire%20iOS/FondWire/Controller/Feeds/FeedEventCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "1964">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7AE33874-AA33-485B-A931-0C9473D363D9"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FondWire/Controller/Feeds/FeedEventCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "configure()"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "webView(_:didStartProvisionalNavigation:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "017E236B-F195-47CD-BE24-E746D822D607"
+            uuid = "56B8600D-3DAA-43A0-8B90-CAD9391BCFD6"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FondWire/Controller/Feeds/FeedEventCell.swift"
+            filePath = "FondWire/Controller/Feed Detail/WKWebViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "configure()"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "webView(_:didReceiveServerRedirectForProvisionalNavigation:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9704179D-D98C-4FB7-9D79-2C6B46FBE93B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FondWire/Controller/Feed Detail/WKWebViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "webView(_:didFinish:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3E5F6BB-6454-4EDB-8C89-BC086A52E38C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FondWire/Controller/Feed Detail/WKWebViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "webView(_:didFailProvisionalNavigation:withError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
